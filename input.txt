@@ -1,0 +1,4 @@
+I love CS3233 competitive
+programing, i also love
+algorithm
+.......you must stop after reading this line as it starts with 7 dots after the first input block, there will be one looooooong line...
