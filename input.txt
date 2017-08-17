@@ -1,6 +1,5 @@
-5
-5 9 3 5 2 6
-1 2
-3 1 1 1 
-4 1 2 1
-5 1 2 3 4 5
+4
+MF MF
+FM FF MF MM
+MM FF
+MF MF MF MF FF
