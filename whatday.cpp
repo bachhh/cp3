@@ -27,26 +27,40 @@ const double pi = acos(-1.0);
 int main(){
   freopen("input.txt","r", stdin);
   // freopen("output.txt","r", stdin);
-
+  map<char, char> game;
+  game['R'] = 'P';
+  game['P'] = 'S';
+  game['S'] = 'R';
   int tc;
   scanf("%d", &tc);
   int init_tc = tc;
   getchar();
   while(tc--){
-    string line;
-    int female = 0, male = 0;
-    getline(cin, line); 
-    for (char& c : line){
-      if (c == 'F') female++;
-      else if (c == 'M') male++;
+    int row, column, day;
+    scanf("%d %d %d", &row, &column, &day);
+    getchar();
+    vector< vector <char> > previous, next;
+    previous.resize(row); next.resize(row);
+    char temp;
+    for (int r = 0; r < row; r++){
+      for (int c = 0; c < column; c++){
+        temp = getchar();
+        previous[r][c] = temp; 
+      }
+      getchar();
     }
-    if (female == male && female > 1 && male > 1){
-      cout << "LOOP" << endl;
+
+    for (;day>0;day--){
+      for(int r = 0; r < row; r++){
+        for(int c = 0; c < column; c++){
+          if (  (r > 0) ? previous[r-1][c] == game.find(next[r][c]) : false ||
+                previous[r][c-1] == game.find(next[r][c]) ||
+                previous[r+1][c] == game.find(next[r][c]) ||
+                previous[r][c+1] == game.find(next[r][c]) ) 
+        }  
+      }
     }
-    else {
-      cout << "NO LOOP" << endl;
-    }
-    
+
   } 
 
   return 0;
