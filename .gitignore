@@ -1,0 +1,5 @@
+# Ignore a.out, input, temp and swap file.
+a.out
+input.txt
+whatday.cpp
+*.swap

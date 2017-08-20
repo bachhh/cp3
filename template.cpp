@@ -4,9 +4,9 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <stream>
+#include <sstream>
 #include <queue>
-#include <dequeue>
+#include <deque>
 #include <iterator>
 #include <bitset>
 
@@ -22,9 +22,6 @@ const double pi = acos(-1.0);
 #define PI 3.1415926535897932384626433832795
 #define INF (int)1e9
 #define FOREACH(it, l) for (auto it = l.begin(); it != l.end(); it++)
-
-template<typename T, typename U> inline void amin(T &x, U y) { if(y < x) x = y; }
-template<typename T, typename U> inline void amax(T &x, U y) { if(x < y) x = y; }
 
 int main(){
   freopen("input.txt","r", stdin);
