@@ -9,6 +9,7 @@
 #include <deque>
 #include <iterator>
 #include <bitset>
+#include <algorithm>
 
 using namespace std;
 
