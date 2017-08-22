@@ -4,3 +4,5 @@ input.txt
 output.txt
 whatday.cpp
 *.swap
+*.swp
+*.swo
