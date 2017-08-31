@@ -3,6 +3,7 @@ a.out
 input.txt
 output.txt
 whatday.cpp
+test.cpp
 *.swap
 *.swp
 *.swo

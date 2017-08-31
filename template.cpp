@@ -3,6 +3,8 @@
 #include <cmath>
 #include <string>
 #include <vector>
+#include <list>
+#include <unorderd_map>
 #include <map>
 #include <sstream>
 #include <stack>
