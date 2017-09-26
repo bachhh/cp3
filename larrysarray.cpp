@@ -32,16 +32,7 @@ const double pi = acos(-1.0);
 #define MAX(a, b) ( (a > b ) ? a : b )
 #define MIN(a, b) ( (a < b ) ? a : b )
 
-// Recursive style
-void bubbleSort(vector<int> &v ){
-
-  int i = 0;
-  int limit = v.size()-3;
-  while(i<limit){
-
-  }
-}
-
+// Helper for swaping iterator
 void swap(list<int> &l, list<int>::iterator a, list<int>::iterator b){
     auto c= std::next(b);
     auto d = std::next(a);
@@ -49,7 +40,46 @@ void swap(list<int> &l, list<int>::iterator a, list<int>::iterator b){
     l.splice(d, l, b);
 }
 
-// Iterative style
+// Swap by value
+void swapValue(list<int> &l, const list<int>::iterator a, const list<int>::iterator b){
+  *a ^= *b;
+  *b ^= *a;
+  *a ^= *b;
+}
+
+// Recursive style
+void bring_to_top(list<int> &l, list<int>::iterator from, int size, int value){
+  list<int>::iterator a, b;
+  if (*from == value && size >= 3 ){
+    return;
+  }
+  else if ( size <= 3){
+    a = (*std::next(from) == value) ? std::next(from) : std::next(next(from));
+    b = (*std::next(from) == value) ? std::next(next(from)) : std::next(from);
+  }
+  else {
+    bring_to_top(l, std::next(from), size-1, value);
+    a = std::next(from);
+    b = std::next(a);
+  }
+  swapValue(l, from, a);
+  swapValue(l, a, b);
+}
+
+bool recurRoboSort(list<int> &l ){
+  auto head = l.begin();
+  int i = 1;
+  int d = l.size();
+  while(d >=3 ){
+    bring_to_top(l, head, d, i);
+    head++;
+    i++;
+    d--;
+  }
+  return l.back() == l.size();
+}
+
+// iterative style
 bool roboSort(list<int> &l){
   if (l.size() <= 3){
     auto first = l.begin();
@@ -66,13 +96,11 @@ bool roboSort(list<int> &l){
     for ( cur = l.begin(), i = 1; cur != l.end() && i < size-1; ++i,++cur ){
       // current node is not in correct position
       if (*cur != i){
-
         auto correct = find(l.begin(), l.end(), i);
         int d = distance(cur, correct);
         if (d==1){
           swap(l, cur, correct);
           swap(l, cur, std::next(cur));
-          cur = correct;
         }
         else {
           if (d%2 == 1){
@@ -100,9 +128,7 @@ bool roboSort(list<int> &l){
 int main(){
   int tc, n, temp;
   cin >> tc;
-
   list<int> l;
-
   while(tc--){
     l.clear();
     cin >> n;
@@ -110,13 +136,18 @@ int main(){
       cin >> temp;
       l.push_back(temp);
     }
-
-    if(roboSort(l)){
+    if(recurRoboSort(l)){
+      cout << "YES"<< endl;
+      continue;
+    }
+    cout << "NO" << endl;
+    /*
+    if(true){
       cout << "YES" << endl;
       continue;
     }
     cout << "NO" << endl;
-
+    */
   }
 
   return 0;
