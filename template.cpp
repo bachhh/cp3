@@ -18,7 +18,7 @@
 #include <functional>
 #include "lib.h"
 
-std::ios::sync_with_stdio(false);
+
 using namespace std;
 
 typedef long int int32;
@@ -35,6 +35,8 @@ const double pi = acos(-1.0);
 #define MIN(a, b) ( (a < b ) ? a : b )
 
 int main(){
-
+  ios::sync_with_stdio(false);
+  // Test IO
+  cin >> test;
   return 0;
 }
