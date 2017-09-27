@@ -1,13 +1,4 @@
-CPPFLAGS = -std=c++11 -Wall
-CC = g++
-
-TARGET = a
-SOURCE = whatapp
-
-$(TARGET).out: 
-	$(CC) $(CPPFLAGS) -o $(TARGET).out $(SOURCE).cpp
-
-clean:
-	$(RM) $(TARGET).out
-
-
+CC=g++
+CFLAGS=-std=c++11 -g
+a.out: whatday.cpp lib.cpp
+	$(CC) -o a.out whatday.cpp lib.cpp $(CFLAGS)
