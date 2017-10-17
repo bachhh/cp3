@@ -50,13 +50,27 @@ struct avlNode{
 
 struct avlTree{
   struct avlNode* root = NULL;
+
   avlNode* treeMax();
   avlNode* treeMin();
   avlNode* treeFind(int);
   avlNode* orderStat(int);
   avlNode* recurStat(avlNode*, int&, int);
+
   string stringify(avlNode*);
   void printTree();
+
+  avlNode* bfact_recal(avlNode*, int);
+  avlNode* rebalance(avlNode*);
+
+  avlNode* insert(int);
+  bool remove(int);
+
+  int height(avlNode*);
+  bool heightTest(avlNode*);
+  bool balanceTest(avlNode*);
+  bool recurTest(avlNode*);
+  bool avlTest();
 };
 
 // VALUE RETRIEVAL
@@ -118,7 +132,67 @@ void avlTree::printTree(){
   cout << stringify(root) << endl;
 }
 
+// TREE PROPERTIES CHECKING
 
+int avlTree::height(avlNode* node){
+  if (node == NULL) return 0;
+  return MAX(height(node->left), height(node->right) + 1);
+}
+
+bool avlTree::heightTest(avlNode* node){
+  return (node->bfact == height(node->right) - height(node->left));
+}
+
+bool avlTree::balanceTest(avlNode* node){
+  return unsigned(node->bfact + 1) <= unsigned(2);
+}
+
+bool avlTree::recurTest(avlNode* node){
+  if (node == NULL) return true;
+  else if (heightTest(node) == false){
+    cout << "HEIGHT: " << node->key << endl;
+    return false;
+  }
+  else if(balanceTest(node) == false){
+    cout << "BALANCE: " << node->key << endl;
+    return false;
+  }
+  else {
+    return(recurTest(node->left) && recurTest(node->right));
+  }
+}
+
+bool avlTree::avlTest(){
+  return recurTest(root);
+}
+
+// TREE PROPERTIES ENFORCING
+
+avlNode* avlTree::bfact_recal(avlNode* node, int value){
+  if (node == NULL) return NULL;
+  assert(value == 1 || value == -1);
+  while(unsigned(node->bfact + 1) <= unsigned(2) && node->parent != NULL){
+    if(node == node->parent->left){
+      node->parent->bfact -= value;
+    }
+    else if (node == node->parent->right){
+      node->parent->bfact += value;
+    }
+    node = node->parent;
+  }
+
+  // If we reached a balanced root
+  if(unsigned(node->bfact + 1 ) <= unsigned(2) && node->parent == NULL)
+    return NULL;
+  else
+    return node;
+}
+
+avlNode* avlTree::rebalance(avlNode* node){
+
+}
+
+//  ***** MAIN *****
 
 int main(){
   ios::sync_with_stdio(false);
