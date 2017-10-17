@@ -50,6 +50,13 @@ struct avlNode{
 
 struct avlTree{
   struct avlNode* root = NULL;
+  avlNode* treeMax();
+  avlNode* treeMin();
+  avlNode* treeFind(int);
+  avlNode* orderStat(int);
+  avlNode* recurStat(avlNode*, int&, int);
+  string stringify(avlNode*);
+  void printTree();
 };
 
 // VALUE RETRIEVAL
@@ -71,14 +78,14 @@ avlNode* avlTree::treeMin(){
 
 avlNode* avlTree::orderStat(int k){
   int i = 0;
-  return recurStat(root, i, k){
-
+  return recurStat(root, i, k);
 }
 
 avlNode* avlTree::recurStat(avlNode* node, int &i, int k){
   recurStat(node->right, i, k);
   i++;
-  if (i == k) return node;
+  if (i == k)
+    return node;
   recurStat(node->left, i, k);
 }
 
@@ -95,15 +102,20 @@ avlNode* avlTree::treeFind(int value){
 
 // PRINT
 
-string avlTree::to_string(avlNode* node = root){
+string avlTree::stringify(avlNode* node){
   string output = "";
   if (node == NULL) output += "NULL";
   else if(node->left == NULL && node->right == NULL)
     output += to_string(node->key) + "|" + to_string(node->bfact);
-  else
-    output += "( " + to_string(node->key) + "|" + to_string(node->bfact)
-            + " => " print(node->left) + " : " print(node->right) + " )";
+  else{
+    output += "( " + to_string(node->key) + "|" + to_string(node->bfact) +
+            " => " + stringify(node->left) + " : " + stringify(node->right) + " )";
+  }
   return output;
+}
+
+void avlTree::printTree(){
+  cout << stringify(root) << endl;
 }
 
 
