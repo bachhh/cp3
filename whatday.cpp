@@ -40,81 +40,73 @@ void swap(int* a, int *b){
   *a ^= *b;
 }
 
-struct node {
-  struct node* left = NULL;
-  struct node* right = NULL;
-  int value;
+struct avlNode{
+  struct avlNode* left = NULL;
+  struct avlNode* right = NULL;
+  struct avlNode* parent= NULL;
+  int key;
+  int bfact = 0;
 };
 
-//Return pointer to newly inserted node
-struct node* insertNode(struct node* root, struct node* new_node){
-  struct node* parent = NULL;
-  while(root != NULL){
-    parent = root;
-    if (new_node->value < root->value){
-      root = root->left;
-    }
-    else if(new_node->value > root->value){
-      root = root->right;
-    }
-  }
-  if(parent != NULL && new_node->value < parent->value){
-    parent->left = new_node;
-  }
-  else if ( parent != NULL && new_node->value > parent->value){
-    parent->right = new_node;
-  }
-  return new_node;
+struct avlTree{
+  struct avlNode* root = NULL;
+};
+
+// VALUE RETRIEVAL
+
+avlNode* avlTree::treeMax(){
+  avlNode* node = root;
+  while(node->right != NULL)
+    node = node->right;
+  return node;
 }
 
-// Transform a Binary tree of node to a double ended circular linked list
-// Return pointer to the first element of the list
-struct node* transform(struct node* root){
-  stack<struct node*> s;
-  struct node* prev = NULL;
+avlNode* avlTree::treeMin(){
+  avlNode* node = root;
+  while(node->left!= NULL)
+    node = node->left;
+  return node;
 
-  struct node* current= root;
-
-  while(!s.empty() || current != NULL){
-    if (current!= NULL){
-      s.push(current);
-      current = current->left;
-    }
-    else{
-      current = s.top();
-      s.pop();
-      // Process popped item
-      if (prev!= NULL) prev->right = current;
-      current->left = prev;
-      prev = current;
-
-      current = current->right;
-    }
-  }
-  // done stack;
-
-  //Rewind to connect last and firs node
-  struct node* head = prev;
-  while(head->left != NULL){
-    head = head->left;
-  }
-  prev->right = head;
-  head->left = prev;
-  return head;
 }
 
-void printTree(struct node* root){
-  queue<struct node*> q;
-  q.push(root);
-  struct node* temp;
-  while(!q.empty()){
-    temp = q.front();
-    q.pop();
-    cout << (temp->value) << endl;
-    if (temp->left != NULL)q.push(temp->left);
-    if (temp->right!= NULL)q.push(temp->right);
-  }
+avlNode* avlTree::orderStat(int k){
+  int i = 0;
+  return recurStat(root, i, k){
+
 }
+
+avlNode* avlTree::recurStat(avlNode* node, int &i, int k){
+  recurStat(node->right, i, k);
+  i++;
+  if (i == k) return node;
+  recurStat(node->left, i, k);
+}
+
+avlNode* avlTree::treeFind(int value){
+  avlNode* node = root;
+  while (node != NULL && value != node->key){
+    if(value < node->key)
+      node = node->left;
+    else if (value > node->key)
+      node = node->right;
+  }
+  return node;
+}
+
+// PRINT
+
+string avlTree::to_string(avlNode* node = root){
+  string output = "";
+  if (node == NULL) output += "NULL";
+  else if(node->left == NULL && node->right == NULL)
+    output += to_string(node->key) + "|" + to_string(node->bfact);
+  else
+    output += "( " + to_string(node->key) + "|" + to_string(node->bfact)
+            + " => " print(node->left) + " : " print(node->right) + " )";
+  return output;
+}
+
+
 
 int main(){
   ios::sync_with_stdio(false);
@@ -125,25 +117,6 @@ int main(){
   }
 
   std::random_shuffle(v.begin(), v.end());
-
-  struct node* root = (struct node*) calloc(1, sizeof(struct node));
-
-  root->value = v[0];
-
-  for(int i=1; i<v.size(); ++i){
-    struct node* temp =  (struct node*) calloc(1, sizeof(struct node));
-    temp->value = v[i];
-    temp->left = NULL;
-    temp->right= NULL;
-    insertNode(root, temp);
-  }
-  cout <<  "done inserting" << endl;
-  root =transform(root);
-  while(root != NULL) {
-    cout << root->value << " ";
-    root = root->right;
-  }
-  cout << endl;
 
   return 0;
 }
