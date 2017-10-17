@@ -61,6 +61,8 @@ struct avlTree{
   void printTree();
 
   avlNode* bfact_recal(avlNode*, int);
+  avlNode* rotateLeft(avlNode*);
+  avlNode* rotateRight(avlNode*);
   avlNode* rebalance(avlNode*);
 
   avlNode* insert(int);
@@ -188,10 +190,95 @@ avlNode* avlTree::bfact_recal(avlNode* node, int value){
     return node;
 }
 
-avlNode* avlTree::rebalance(avlNode* node){
+avlNode* avlTree::rotateLeft(avlNode* node){
+  avlNode* child = node->right;
+  if ( child == NULL) return NULL;
+  else {
+    // Recalculates balance factor
+    int old_node_bfact  = node->bfact;
+    int old_child_bfact = child->bfact;
+    if (old_child_bfact <= 0){
+      node->bfact = old_node_bfact - 1;
+    }
+    else{
+      node->bfact =
+    }
 
+    // Moving pointers
+    node->right = child->left;
+    if (child->left != NULL){
+      child->left->parent = node;
+    }
+    child->parent = node->parent;
+    if (node->parent == NULL){
+      root = child;
+    }
+    else if (node == node->parent->left){
+      node->parent->left = child;
+    }
+    else if (node == node->parent->right){
+      node->parent->right = child;
+    }
+    child->left = node;
+    node->parent = child;
+
+  }
 }
 
+avlNode* avlTree::rotateRight(avlNode* node){
+  avlNode* child = node->left;
+  if (child == NULL) return NULL;
+  else {
+    // Recalculates balance factor
+    int old_node_bfact  = node->bfact;
+    int old_child_bfact = child->bfact;
+
+    // Moving pointers
+    node->left= child->right;
+    if (child->right != NULL){
+      child->right->parent = node;
+    }
+    child->parent = node->parent;
+    if (node->parent == NULL){
+      root = child;
+    }
+    else if (node == node->parent->left){
+      node->parent->left = child;
+    }
+    else if (node == node->parent->right){
+      node->parent->right = child;
+    }
+    child->right = node;
+    node->parent = child;
+  }
+}
+
+avlNode* avlTree::rebalance(avlNode* node){
+  if (unsigned(node->bfact +1) <= unsigned(2)){
+    if(){
+    }
+  }
+  else {
+    return NULL;
+  }
+}
+
+//  ***** INSERT / DELETE *****
+avlNode* avlTree::insert(int value){
+  if (find(value) != NULL) return NULL;
+  else{
+
+  }
+}
+
+bool avlTree::remove(int value){
+  avlNode* n = find(value);
+  if (n == NULL) return false;
+  else {
+
+    return true;
+  }
+}
 //  ***** MAIN *****
 
 int main(){
