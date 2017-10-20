@@ -82,19 +82,33 @@ vector<vector<int>> powersetIter(vector<int> list){
 }
 
 // Subset of size
-vector<vector<int>> subsetSize(vector<int> list, int size){
-  vector<int> in, out;
+vector<vector<int>> subsetSize(const vector<int> list, const int size){
   vector<vector<int>> output;
-  for (int i = 0; i < list.size(); ++i){
-    if (i < size)in.push_back(list[i]);
-    else out.push_back(list[i]);
+  int n = list.size();
+  vector<bool> set(n);
+  vector<int> temp;
+  for (int i = 0; i < n; ++i){
+    if (i < size){
+      set[i] = true;
+      temp.push_back(list[i]);
+    }
+    else{
+      set[i] = false;
+    }
   }
-  output.push_back(in);
-  for(int o = 0; o < out.size(); ++o){
-    for (int i=0; i < in.size(); ++i){
-      swap(out[o], in[i]);
-      output.push_back(in);
-      swap(out[o], in[i]);
+  output.push_back(temp);
+
+  for(int i = size-1; i >= 0 ; --i){
+    // Flip the j bit to 0
+    // Flip the j+1 bit to 1
+    for (int j = i; j < i + (n-size); ++j){
+      temp.clear();
+      set[j] = !set[j];
+      set[j+1] = !set[j+1];
+      for(int k=0; k < n; ++k){
+        if(set[k]) temp.push_back(list[k]);
+      }
+      output.push_back(temp);
     }
   }
   return output;
@@ -108,7 +122,7 @@ int main(){
   v.push_back(2);
   v.push_back(3);
   v.push_back(4);
-  vector<vector<int>> test = subsetSize(v, 4);
+  vector<vector<int>> test = subsetSize(v, 3);
 
   return 0;
 }
