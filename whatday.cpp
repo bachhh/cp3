@@ -43,14 +43,28 @@ void swap(int* a, int *b){
 //  ***** MAIN *****
 int main(){
   ios::sync_with_stdio(false);
-  int n, x;
-  cin >> n >> x;
-  int count =0;
+  int n, temp;
+  cin >> n;
+  queue<int> math;
+  queue<int> code;
+  queue<int> sport;
   for(int i =1; i<=n; ++i){
-    if (x % i == 0 && x/i <= n)
-      count++;
+    cin >> temp;
+    if(temp == 1) code.push(i);
+    if(temp == 2) math.push(i);
+    if(temp == 3) sport.push(i);
   }
-  cout << count << endl;
+
+  int teams = MIN(code.size(), MIN(math.size(), sport.size()));
+  cout << teams << endl;
+  if (teams>0){
+    for(int i =0; i < teams; ++i){
+      printf("%d %d %d\n", code.front(), math.front(), sport.front());
+      code.pop();
+      math.pop();
+      sport.pop();
+    }
+  }
 
   return 0;
 }
