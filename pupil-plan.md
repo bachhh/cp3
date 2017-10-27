@@ -38,7 +38,7 @@ Practice Style: new topics (2 easy + 3 medium problems) + extra implementation p
 | ^5 | [DS] Non-linear DS | CP 2.3 | UVa [11062, 11286, 1203, 12504, 11348] | CF [339B, 466A, 492A, 313A, 581A] |
 | ^6 | [DS] Sortings: Merge Sort and Inversion Index | CLRS 2.3, CP 9.14 | UVa [299, 10327] | CF [677A, 705A, 200B, 540A, 268B] |
 | ^7 | [DS] Sortings: Counting and Radix Sort | CP 9.32 | UVa 11462, CF [686B, 652B] | CF [432A, 711A, 509A, 327A, 703A] |
-| ^8 | [SP] Brute Force | CP 3.1, CP 3.2.1| CF [^25A, ^CF 520A], UVa [^102, ^1260, ^1237] | CF [^427A, ^519B, 707A, 577A, 490A] |
+| ^8 | [SP] Brute Force | CP 3.1, CP 3.2.1| CF [^25A, ^CF 520A], UVa [^102, ^1260, ^1237] | CF [^427A, ^519B,^707A, ^577A, 490A] |
 | 9 | [SP] Brute Force | CP 3.2.2 | UVa [524, 167, 624, 10360, 12346] | CF [476A, 448A, 474A, 599A, 149A] |
 | 10 | [SP] Brute Force | CP 3.2.2, 3.2.3 | UVa [1251, 11201, 1064, 12515, 750] | CF [519A, 270A, 489C, 467B, 716A] |
 | 11 | [SP] Greedy | CP 3.4 | UVa[10340, 11900, 12405], CF [230A, 413C] | CF [230B, 567A, 439A, 459A, 474B] |

@@ -43,17 +43,14 @@ void swap(int* a, int *b){
 //  ***** MAIN *****
 int main(){
   ios::sync_with_stdio(false);
-  char c;
-  // Set all bits on
-  while((c = getchar())!= EOF){
-    if (c == 'C' ||
-        c == 'M' ||
-        c == 'Y'){
-      cout << "#Color" << endl;
-      return 0;
-    }
+  int n, x;
+  cin >> n >> x;
+  int count =0;
+  for(int i =1; i<=n; ++i){
+    if (x % i == 0 && x/i <= n)
+      count++;
   }
-  cout << "#Black&White" << endl;
+  cout << count << endl;
 
   return 0;
 }
