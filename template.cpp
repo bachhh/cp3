@@ -27,16 +27,20 @@ typedef unsigned long int uint32;
 typedef unsigned long long int uint64;
 const double pi = acos(-1.0);
 
-
 #define PI 3.1415926535897932384626433832795
 #define INF (int)1e9
 #define FOREACH(it, l) for (auto it = l.begin(); it != l.end(); it++)
+#define LOOP(n) for (int i = 0; i < n; ++i)
 #define MAX(a, b) ( (a > b ) ? a : b )
 #define MIN(a, b) ( (a < b ) ? a : b )
 
+void swap(int* a, int *b){
+  *a ^= *b;
+  *b ^= *a;
+  *a ^= *b;
+}
+
 int main(){
   ios::sync_with_stdio(false);
-  // Test IO
-  cin >> test;
   return 0;
 }
