@@ -34,6 +34,126 @@ const double pi = acos(-1.0);
 #define MAX(a, b) ( (a > b ) ? a : b )
 #define MIN(a, b) ( (a < b ) ? a : b )
 
+char vowel[] = {'a', 'e','i','o','u'};
+char conso[] = {'b', 'c', 'd','f','g','h','j','k','l','m','n','p','q',
+                 'r','s','t','v','w', 'x','y', 'z'};
+bool is_vowel(char c){
+  if (c =='a' ||
+      c =='e' ||
+      c =='i' ||
+      c =='u' ||
+      c =='o') return true;
+  else return false;
+}
+
+char next_vow(char c){
+  int i = -1;
+  while(++i < 5){
+    if(c == vowel[i]){
+      break;
+    }
+  }
+  return (i<5)?vowel[(i+1)%5]:vowel[0];
+}
+
+char next_conso(char c){
+  int i = -1;
+  while(++i < 21){
+    if(conso[i] == c){
+      break;
+    }
+  }
+  return (i<21)?conso[(i+1)%21]:conso[0];
+}
+
+bool check_properties(const string s){
+  map<char, int> freq;
+  for(int i =0; (i<s.length()) && (s[i]>='a') && (s[i]<='z'); ++i){
+    if( freq.find(s[i]) != freq.end() ){
+      freq[s[i]]++;
+    }
+    else {
+      freq[s[i]] = 1;
+    }
+    if((i+1)%2 == 0){
+      if (!is_vowel(s[i]) ){
+        return false;
+      }
+    }
+    else if( (i+1)% 2 == 1){
+      if (is_vowel(s[i])){
+        return false;
+      }
+    }
+  }
+  for(map<char, int>::iterator it = freq.begin(); it != freq.end(); it++){
+    if (it->second > 2){
+      return false;
+    }
+  }
+  return true;
+}
+
+int is_triplet(const string word, char c){
+  int count=0;
+  for(char ch : word)
+    if(c==ch) count++;
+  return count;
+}
+
+void next_string_ref(string &word, int index){
+  char c;
+  bool recurse = false;
+  if ((index+1) % 2 == 0){
+    c = next_vow(word[index]);
+    if (c == 'a')recurse = true;
+    do {
+      if (recurse){
+        if(index+1 < word.length()){
+          next_string_ref(word, index+1);
+        }
+        else{
+          word.push_back('b');
+        }
+        recurse = false;
+      }
+      if(is_triplet(word, c) > 1){
+        int i = 0; while(word[i] != c)i++;
+        if(i > index){
+          c = next_vow(c);
+          if(c=='a') recurse = true;
+          continue;
+        }
+        else break;
+      }
+    }while( recurse || is_triplet(word, c)>1);
+  }
+  else if ((index+1) % 2 == 1){
+    c = next_conso(word[index]);
+    if(c == 'b')recurse = true;
+    do{
+      if (recurse){
+        if(index+1 < word.length()){
+          next_string_ref(word, index+1);
+        }
+        else{
+          word.push_back('a');
+        }
+        recurse = false;
+      }
+      if (is_triplet(word, c) > 1){
+        int i = 0; while(word[i] != c)i++;
+        if(i > index){
+          c = next_conso(c);
+          if (c=='b')recurse = true;
+          continue;
+        }
+        else break;
+      }
+    } while(recurse || is_triplet(word, c) > 1);
+  }
+  word[index] = c;
+}
 
 //  ***** MAIN *****
 int main(){
