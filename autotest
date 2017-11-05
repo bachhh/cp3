@@ -1,3 +1,8 @@
 #!/bin/bash
-make
-cat input.txt | ./a.out
+make > /dev/null
+if [ $? -eq 0 ]
+then
+  cat input.txt | ./a.out
+else
+  echo "Compilation error, exit."
+fi
