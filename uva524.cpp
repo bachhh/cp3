@@ -34,66 +34,55 @@ const double pi = acos(-1.0);
 #define MAX(a, b) ( (a > b ) ? a : b )
 #define MIN(a, b) ( (a < b ) ? a : b )
 
-vector<vector<int>> store;
 
-void permute(vector<bool> sieve, vector<int> array, int i, int n){
-  // Edge case n = 1
-  if (n == 0){
-    store.push_back(array);
-    return;
+vector<vector<int>> queens;
+int queen_board[8];
+void queen_problem(int row){
+  if (row > 7){
+    for(int i =0;i< 8++i)
+      cout << quee_board[i] << " ";
+    cout << endl;
   }
-  if (i == n){
-    if (sieve[array[i] + array[i-1]] && sieve[array[i] + array[0]])
-      store.push_back(array);
-  }
-  else {
-    for( int j = i; j <= n; ++j){
-      if ( sieve[array[j] + array[i-1]] ){
-        std::swap(array[i], array[j]);
-        permute(sieve, array, i+1, n);
-        std::swap(array[i], array[j]);
+  for(int i = 0; i <8; ++i){
+    bool threat = false;
+    queen_board[row] = i;
+    // Check the queen_board for threats
+    for(int j = 0; j < i && !threat; ++j){
+      if (queen_board[i] == queen_board[j] ||
+          abs(row - j) == abs(queen_board[row] - queen_board[j])){
+        threat = true;
       }
     }
+
+    // If no threat present, place queen of row at column i
+    // Proceed to row +1
+    if (!threat) queen_problem(row+1);
+
   }
+  queen_board[row] = -1;
 }
 
 //  ***** MAIN *****
 int main(){
   ios::sync_with_stdio(false);
-  int n;
-  vector<bool> sieve;
-  int testcase = 1;
-  for(int i = 0; i <= 31; i++){sieve.push_back(true);}
-  vector<int> array;
-
-  for(int i = 2; i<=31; ++i){
-    if(sieve[i]){
-      for(int j = 2; j*i <= 31; ++j){
-        sieve[i*j] = false;
+  int k, temp;
+  cin >> k;
+  vector<vector<int>> board;
+  queen_problem(0);
+  /*
+  vector<int> temp_row;
+  for(int i = 0; i < k; ++i){
+    board.clear();
+    for(int j = 0; j < 8;++j){
+      temp_row.clear();
+      for (int k = 0; k < 8; ++k)}
+        cin >> temp;
+        temp_row.push_back(temp);
       }
+      board.push_back(temp_row);
     }
   }
-
-  cin >> n;
-  do {
-    store.clear();
-    array.clear();
-    for(int i =1; i <= n; ++i){
-      array.push_back(i);
-    }
-
-    permute(sieve, array, 1, n-1);
-    cout << "Case "<< testcase++ <<":" << endl;
-    std::sort(store.begin(), store.end());
-
-    for(vector<int> v : store){
-      for(int i = 0; i < v.size(); ++i){
-        cout << v[i];
-        if (i < v.size()-1) cout << " ";
-      }
-      cout << endl;
-    }
-  }while(cin >> n && cout << endl);
+  */
 
   return 0;
 }
