@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ $1 == "view" ] && [ -n $2 ]; then
+  if [ $# -eq 3 ]; then
+    echo $3
+    google-chrome > /dev/null "http://codeforces.com/problemset/problem/$(echo $2 | grep -oP "[0-9]*")/$3 " 2>&1
+  else
+    google-chrome > /dev/null "http://codeforces.com/problemset/problem/$(echo $2 | grep -oP "[0-9]*")/$(echo $2 | grep -oP "[a-z]" )" 2>&1
+  fi
+else
+  echo "Misisng arguement(s)"
+fi
+
