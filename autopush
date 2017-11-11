@@ -1,6 +1,11 @@
 #!/bin/bash
 if [[ -z "$1" && -z "$2" ]]; then
   echo "Missing arguement(s)"
+elif [ $# -eq 3 ]; then
+  cp whatday.cpp "$1$2$3.cpp"
+  git add "$1$2$3.cpp"
+  git commit -m "\'${1^^}$2$3.cpp\'"
+  git push origin master -f
 else
   cp whatday.cpp "$1$2.cpp"
   git add "$1$2.cpp"
