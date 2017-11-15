@@ -1,0 +1,8 @@
+#!/bin/bash
+
+while true; do
+  inotifywait -qqe unmount,modify,attrib,close_write,move,create,delete whatday.cpp input.txt
+  ./autotest
+  echo "--------------------------------------------------------------------------------------"
+  echo -e "\n"
+done
