@@ -28,22 +28,29 @@ int main(){
   cin.tie(NULL);
   string s;
   cin >> s;
-  bool ba = false, ab = false;
-  int i = 0;
-  while( i < s.length()){
-    if (s[i] == 'B' && s[i+1] == 'A'){
-      ba = true;
-      i++;
+  vector<int> ba;
+  vector<int> ab;
+  for(int i =0; i < s.length() -1; i++){
+    if(s[i] == 'B' && s[i+1] == 'A'){
+      ba.push_back(i);
     }
     else if (s[i] == 'A' && s[i+1] == 'B'){
-      ab = true;
-      i++;
+      ab.push_back(i);
     }
-    i++;
   }
 
-  if ( ba && ab) cout << "YES" << endl;
+  bool found = false;
+  for(int i = 0; !found && i < ab.size(); ++i){
+    for(int j = 0; !found && j < ba.size(); ++j){
+      if(abs(ab[i] - ba[j]) > 1){
+        found = true;
+      }
+    }
+  }
+  if (found) cout << "YES" << endl;
   else cout << "NO" << endl;
+
+
 
   return 0;
 }
