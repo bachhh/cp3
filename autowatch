@@ -1,8 +1,7 @@
 #!/bin/bash
 
 while true; do
-  inotifywait -qqe unmount,modify,attrib,close_write,move,create,delete whatday.cpp input.txt
-  ./autotest
+  inotifywait -qqe unmount,modify,attrib,close_write,move,create,delete whatday.cpp
+  make
   echo -e "------------------------------------------------------------------------$(date +%H%M%S)\n"
-
 done

@@ -81,15 +81,15 @@ CP 3.3 | UVa [^10474, ^10611], CF [^279B, ^165B, ^812C] | CF [^570A, ^791A, ^785
 
 | ^14 | [SP] Binary Search |
 [TC tutorial](https://www.topcoder.com/community/data-science/data-science-tutorials/binary-search/)
-| CF ^68B, UVa [^11428, ^11413, 11057, 11935] | CF [551A, 349A, 313B, 560A, 550A] |
+| CF ^68B, UVa [^11428, ^11413, ^11057, ^11935] | CF [^551A, ^349A, ^313B, ^560A, ^550A] |
 
-| 15 | [Graphs] Representation |
+| ^15 | [Graphs] Representation |
 
-CP 2.4.1 | UVa [11991, 10928, 599, 11550], CF 246D | CF [527A, 118B, 583A, 706B, 151A] |
+CP 2.4.1 | UVa [^11991, ^10928, ^599, ^11550], CF ^246D | CF [^527A, ^118B, ^583A, ^706B, ^151A] |
 
 | 16 | [Graphs] Traversal |
 
-CP 4.2.1-2 | UVa [280, 12442], CF[277A, 115A, 61D] | CF [659A, 507A, 1B, 330A] |
+CP 4.2.1-2 | UVa [^280, ^12442], CF[^277A, ^115A, ^61D] | CF [^659A, ^507A, ^1B, ^330A] |
 
 | 17 | [Graphs] Basic Algos |
 

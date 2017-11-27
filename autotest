@@ -1,5 +1,5 @@
 #!/bin/bash
-make > /dev/null
+make
 if [ $? -eq 0 ]
 then
   cat input.txt | ./a.out

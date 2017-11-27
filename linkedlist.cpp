@@ -32,11 +32,13 @@ ostream& operator << ( ostream& os, const pair< F, S > & p ) {
 
 template < typename T >
 ostream &operator << ( ostream & os, const vector< T > &v ) {
+  os << "{";
   typename vector< T > :: const_iterator it;
   for( it = v.begin(); it != v.end(); it++ ) {
-    os << *it <<  " \n"[it != v.begin()];
-  }
-  return os << "";
+    if( it != v.begin() ) os << ", ";
+      os << *it;
+    }
+  return os << "}";
 }
 
 template < typename T >
@@ -74,10 +76,10 @@ ostream &operator << ( ostream & os, const vector< vector< T > > &v ) {
   return os << "\n";
 }
 
-ostream &operator << ( ostream & os, const vii &v ) {
-  size_t s = v.size();
-  for(int i = 0; i < s; ++i){
-    os << "(" << v[i].first + 1 << ", " << v[i].second << ")" << " \n"[i == (s-1)];
+ostream &operator << ( ostream & os, const  vii &v ) {
+  for(int i = 0; i < v.size(); ++i){
+    os << "(" << v[i].first + 1 << ", " << v[i].second << ")"
+      << " \n"[i == v.size()-1];
   }
 }
 
@@ -92,21 +94,30 @@ ostream &operator << ( ostream & os, const vector< vii > &v ) {
   return os << "\n";
 }
 
-template < typename T>
-void printf(T *matrix, size_t row, size_t col){
-  cout << "\n";
-  for(int i = 0; i < row; ++i){
-    for(int j = 0; j < col; ++j){
-      cout << matrix[i][j] << " \n"[j == col-1];
-    }
-  }
-  cout << "\n";
+
+struct node* {
+  int data;
+  struct node* next;
+};
+
+void Push(struct node** headRef, int newData){
+  struct node* newNode = (struct node*) calloc(1, sizeof(struct node));
+  newNode->data = newData;
+  newNode->next = headRef;
+  *headRef = newNode;
 }
 
 //  ***** MAIN *****
 int main(){
   ios::sync_with_stdio(false);
   cin.tie(NULL);
+  int n, a, b; cin >> n >> a >> b;
+
+  while( a+b < 0){
+    a = a+n;
+  }
+  cout << (a+b) % n << endl;
+
   return 0;
 }
 
