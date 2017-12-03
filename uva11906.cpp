@@ -34,10 +34,11 @@ void debug(const pair< F, S > & p ) {
 template < typename T >
 void debug(const vector< T > &v ) {
   typename vector< T > :: const_iterator it;
-  for( it = v.begin(); it != v.end(); it++ ) {
-    cout << *it <<  " \n"[it != v.begin()];
+  cout << "{ ";
+  for(int i =0; i < v.size(); ++i){
+    cout << v[i] <<  ", "[i == (v.size()-1)];
   }
-  cout << "";
+  cout << " }" << endl;
 }
 
 template < typename T >
@@ -97,7 +98,6 @@ template < typename T>
 void printM(T *matrix, size_t row, size_t col){
   cout << "\n";
   for(int i = 0; i < row; ++i){
-
     for(int j = 0; j < col; ++j){
       cout << matrix[i][j] << " \n"[j == col-1];
     }
@@ -105,14 +105,32 @@ void printM(T *matrix, size_t row, size_t col){
   cout << "\n";
 }
 
-vvi AL;
-int dfs_flag[26];
-void dfs(int u){
-  dfs_flag[u] = VISITED;
-  for(int neighbor : AL[u]){
-    if ( dfs_flag[neighbor] == UNVISITED ){
-      dfs(neighbor);
+
+bool water[100][100];
+bool isVisited[100][100];
+
+vector<int> jump;
+int tc, r , c , m ,n, w, x ,y;
+int odd, even;
+
+void dfs(int x, int y){
+  isVisited[x][y] = true;
+  int count = 0;
+  for(int i = 0; i < jump.size()-1; ++i){
+    if ( x+jump[i] < r && y+jump[i+1] < c &&
+         x+jump[i] >= 0 && y+jump[i+1] >= 0 &&
+         !water[x+jump[i]][y+jump[i+1]]){
+      count++;
+      if(!isVisited[ x+jump[i] ][ y+jump[i+1] ]){
+        dfs(x + jump[i], y+jump[i+1]);
+      }
     }
+  }
+  if(count%2 == 1){
+    odd++;
+  }
+  else {
+    even++;
   }
 }
 
@@ -120,8 +138,37 @@ void dfs(int u){
 int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
-  int tc;
+  cin >> tc;
+  for(int ca= 1; ca <= tc; ++ca){
+    odd = 0;
+    even = 0;
+    cin >> r >> c >> m >> n >> w;
+    jump.clear();
 
+    if ( m == 0 || n == 0 ){
+      jump = {MAX(m, n), MIN(m, n), -MAX(m, n), MIN(m, n), MAX(m, n)};
+    }
+    else if ( m == n){
+      jump = {m, m, -m, -m, m};
+    }
+    else if (m != 0 && n != 0){
+      jump = {n, m, -n, -m, n, -m, -n, m, n};
+    }
+
+    // Clear water
+    for(int i = 0; i < r; ++i){ for(int j = 0; j < c; ++j){
+        isVisited[i][j] = false;
+        water[i][j] = false;
+      }
+    }
+    for(int i = 0; i < w; ++i){
+      cin >> x >> y;
+      water[x][y] = true;
+    }
+    dfs(0, 0);
+    //printM(isVisited, 3, 3);
+    printf("Case %d: %d %d\n", ca, even, odd);
+  }
   return 0;
 
 }

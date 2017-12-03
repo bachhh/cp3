@@ -3,5 +3,6 @@
 while true; do
   inotifywait -qqe unmount,modify,attrib,close_write,move,create,delete whatday.cpp
   make
+  ./autotest
   echo -e "------------------------------------------------------------------------$(date +%H%M%S)\n"
 done
