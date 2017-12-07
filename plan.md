@@ -91,13 +91,13 @@ CP 2.4.1 | UVa [^11991, ^10928, ^599, ^11550], CF ^246D | CF [^527A, ^118B, ^583
 
 CP 4.2.1-2 | UVa [^280, ^12442], CF[^277A, ^115A, ^61D] | CF [^659A, ^507A, ^1B, ^330A] |
 
-| 17 | [Graphs] Basic Algos |
+| ^17 | [Graphs] Basic Algos |
 
-CP 4.2.3-4, [Wiki](https://en.wikipedia.org/wiki/Topological_sorting) | UVa [^459, ^11906, 11953, 626], CF 60B | CF [706A, 686A, 441A, 611A, 431A] |
+CP 4.2.3-4, [Wiki](https://en.wikipedia.org/wiki/Topological_sorting) | UVa [^459, ^11906, ^11953, ^626], CF ^60B | CF [^706A, ^686A, ^441A, ^611A, ^431A] |
 
-| 18 | [Graphs] Basic Algos |
+| ^18 | [Graphs] Basic Algos |
 
-CP 4.2.5-7 | UVa [10305, 11060, 11396, 10505], CF 103B | CF [451A, 688A, 519C, 454A, 681A] |
+CP 4.2.5-7 | UVa [^10305, ^11060, ^11400, ^10505], CF ^103B | CF [^451A, ^688A, ^519C, 454A, 681A] |
 
 | 19 | [Graphs] Basic Algos |
 
