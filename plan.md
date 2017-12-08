@@ -97,11 +97,11 @@ CP 4.2.3-4, [Wiki](https://en.wikipedia.org/wiki/Topological_sorting) | UVa [^45
 
 | ^18 | [Graphs] Basic Algos |
 
-CP 4.2.5-7 | UVa [^10305, ^11060, ^11400, ^10505], CF ^103B | CF [^451A, ^688A, ^519C, 454A, 681A] |
+CP 4.2.5-7 | UVa [^10305, ^11060, ^11400, ^10505], CF ^103B | CF [^451A, ^688A, ^519C, ^454A, ^681A] |
 
-| 19 | [Graphs] Basic Algos |
+| ^19 | [Graphs] Basic Algos |
 
-CP 4.2.8-9 | UVa [315, 610, 10199, 11709, 11504] | CF [688A, 519C, 454A, 681A, 552B] |
+CP 4.2.8-9 | UVa [^315, ^610, ^10199, ^11709, 11504] | CF [688A, 519C, 454A, 681A, 552B] |
 
 | 20 | [Graphs] Minimum Spanning Tree |
 
