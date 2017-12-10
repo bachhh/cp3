@@ -51,6 +51,11 @@ int main(){
     cin >> badges[i];
   }
   sort(badges, badges + n);
+  for(int i = 0; i < n; ++i){
+    cout << badges[i] << " ";
+  }
+  cout << endl;
+
 
   int cost = 0;
   for(int i = 0; i < n-1; ++i){
