@@ -23,19 +23,11 @@ typedef vector<vi> vvi;
 #define DEBUG(x) cerr << #x << " is " << x << endl;
 
 #define LIMIT 100
-
-template < typename T>
-void printM(T *matrix, size_t row, size_t col){
-  cout << "\n";
-  for(int i = 0; i < row; ++i){
-
-    for(int j = 0; j < col; ++j){
-      cout << matrix[i][j] << " \n"[j == col-1];
-    }
-  }
-  cout << "\n";
+void swap(int* a, int* b){
+  *a ^= *b;
+  *b ^= *a;
+  *a ^= *b;
 }
-
 //  ***** MAIN *****
 int main(){
   //ios::sync_with_stdio(false);
@@ -44,26 +36,35 @@ int main(){
 
 
   int badges[3000];
+  int distinct[3000];
+
+  LOOP(i, 3000){
+    distinct[i] = 0;
+  }
+
   int n;
   cin >> n;
 
   LOOP(i, n){
     cin >> badges[i];
   }
-  sort(badges, badges + n);
-  for(int i = 0; i < n; ++i){
-    cout << badges[i] << " ";
-  }
-  cout << endl;
 
+  sort(badges, badges + n);
 
   int cost = 0;
-  for(int i = 0; i < n-1; ++i){
-    if (badges[i] == badges[i+1]){
+
+  int i =0;
+
+  while(i < n-1){
+    if (badges[i] >= badges[i+1]){
       badges[i+1]++;
       cost++;
     }
+    else{
+      i++;
+    }
   }
+
   cout << cost << endl;
 
 
