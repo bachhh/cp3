@@ -12,6 +12,7 @@ typedef vector<vi> vvi;
 #define PI 3.1415926535897932384626433832795
 #define VISITED 1
 #define UNVISITED -1
+#define FLOAT_EPSILON 1e-6
 
 #define FOREACH(it, l) for (auto it = l.begin(); it != l.end(); it++)
 #define LOOP(i, n) for (int i = 0; i < n; ++i)
@@ -34,10 +35,11 @@ void debug(const pair< F, S > & p ) {
 template < typename T >
 void debug(const vector< T > &v ) {
   typename vector< T > :: const_iterator it;
-  for( it = v.begin(); it != v.end(); it++ ) {
-    cout << *it <<  " \n"[it != v.begin()];
+  cout << "{ ";
+  for(int i =0; i < v.size(); ++i){
+    cout << v[i] <<  ", "[i == (v.size()-1)];
   }
-  cout << "";
+  cout << " }" << endl;
 }
 
 template < typename T >
@@ -93,25 +95,8 @@ void debug( const vector< vii > &v ) {
   cout << "\n";
 }
 
-void debug(const vector<tuple<int, int, int>>&v){
-  printf("\n");
-  for(auto t : v){
-    printf("{%d, %d, %d}\n",get<0>(t),get<1>(t),get<2>(t)  );
-  }
-  printf("\n");
-}
-
 template < typename T>
-void debug(T *arr, int size){
-  std::cout << std::endl;
-  for (int i = 0; i < size; ++i) {
-    cout << arr[i] << " ";
-  }
-  cout << "\n";
-}
-
-template < typename T>
-void debug(T **matrix, size_t row, size_t col){
+void printM(T *matrix, size_t row, size_t col){
   cout << "\n";
   for(int i = 0; i < row; ++i){
     for(int j = 0; j < col; ++j){
@@ -121,14 +106,69 @@ void debug(T **matrix, size_t row, size_t col){
   cout << "\n";
 }
 
+vvi al;
+
+int color[300];
+int black, white;
+bool dfs_bipartite(int u, int u_color){
+  color[u] = u_color;
+  bool r = true;
+  for(int neighbor : al[u]){
+    if (color[neighbor] == 0){
+      r = r && dfs_bipartite(neighbor, -u_color);
+    }
+    else if (color[neighbor] == u_color){
+      r = false;
+      break;
+    }
+  }
+  if (r) {
+    if(u_color < 0){
+      black++;
+    }
+    else if (u_color > 0){
+      white++;
+    }
+  }
+  return r;
+}
 
 //  ***** MAIN *****
 int main(){
-  //ios::sync_with_stdio(false);
+  ios::sync_with_stdio(false);
   cin.tie(NULL);
-  int tc;
+  int n, m, a, b;
+  queue<int> q;
 
+  cin >> m;
+  while(m--){
+    cin >> n;
+    al.clear();
+    LOOP(i, n){
+      al.push_back(vi {});
+      color[i] = 0;
+    }
+
+    LOOP(i, n){
+      cin >> a;
+      LOOP(z, a){
+        cin >> b;
+        al[i].push_back(b-1);
+        al[b-1].push_back(i);
+      }
+    }
+
+    bool flag= true;
+    int output = 0;
+    for(int node = 0; node < n; ++node){
+      black= 0; white= 0;
+      if (color[node] == 0 ){
+        flag = flag && dfs_bipartite(node, 1);
+      }
+      output += MAX(black, white);
+    }
+    if (flag) cout << output << endl;
+    else cout << 0 << endl;
+  }
   return 0;
-
 }
-

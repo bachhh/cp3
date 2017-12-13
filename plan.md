@@ -101,15 +101,15 @@ CP 4.2.5-7 | UVa [^10305, ^11060, ^11400, ^10505], CF ^103B | CF [^451A, ^688A, 
 
 | ^19 | [Graphs] Basic Algos |
 
-CP 4.2.8-9 | UVa [^315, ^610, ^10199, ^11709, 11504] | CF [688A, 519C, 454A, 681A, 552B] |
+CP 4.2.8-9 | UVa [^315, ^610, ^10199, ^11709, ^11504] | CF [^688A, ^519C, ^454A, ^681A, ^552B] |
 
-| 20 | [Graphs] Minimum Spanning Tree |
+| ^20 | [Graphs] Minimum Spanning Tree |
 
-CP 4.3 | UVa [11631, 11733, 1235, 10099, 1234] | CF [450A, 676A, 462A, 255A, 546B] |
+CP 4.3 | UVa [^11631, ^11733, ^1235, ^10099, ^1234] | CF [^450A, ^676A, ^462A, ^255A, ^546B] |
 
-| 21 | [Graphs] Single-Source Shortest Path |
+| ^21 | [Graphs] Single-Source Shortest Path |
 
-CP 4.4.1-3 | UVa [10986, 1112, 12160, 11487, 10356] | CF [276A, 501A, 545D, 401A, 573A] |
+CP 4.4.1-3 | UVa [^10986, 1112, 12160, 11487, 10356] | CF [276A, 501A, 545D, 401A, 573A] |
 
 | 22 | [Math] Adhoc Problems |
 

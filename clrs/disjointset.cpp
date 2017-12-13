@@ -26,7 +26,6 @@ void swap(int32* a, int32* b){
 }
 
 // Detail analysis is fully explained in CLSR Chapter 21
-
 // Linked List
 typedef struct disjointset {
   struct setmember* tail = NULL;
@@ -40,15 +39,14 @@ typedef struct setmember{
   struct setmember* nextMember = NULL;
 }SetMember;
 
-
-DisjointSet* MakeSet(int value){
+SetMember* MakeSet(int value){
   SetMember* m = (SetMember*) calloc(1, sizeof(SetMember));
   DisjointSet* s = (DisjointSet*) calloc(1, sizeof(DisjointSet));
   s->length = 1;
   s->head = s->tail = m;
   m->memberOf = s;
   m->id = value;
-  return s;
+  return m;
 }
 
 DisjointSet* FindSet(SetMember* u){
@@ -56,8 +54,21 @@ DisjointSet* FindSet(SetMember* u){
 }
 
 DisjointSet* UnionSet(SetMember* u, SetMember* v){
-  DisjointSet* larger = (u->memberOf->length > v->memberOf->length)?u->memberOf:v->memberOf;
-  DisjointSet* smaller = (u->memberOf->length > v->memberOf->length)?v->memberOf:u->memberOf;
+  DisjointSet* larger;
+  DisjointSet* smaller;
+  if (u->memberOf->length > v->memberOf->length){
+    larger = u->memberOf;
+  }
+  else{
+    larger = v->memberOf;
+  }
+  if (u->memberOf->length > v->memberOf->length){
+    smaller = v->memberOf;
+  }
+  else{
+    smaller = u->memberOf;
+  }
+
   SetMember* current = smaller->head;
   larger->length += smaller->length;
   larger->tail->nextMember = current;
@@ -69,6 +80,18 @@ DisjointSet* UnionSet(SetMember* u, SetMember* v){
   free(smaller);
   return larger;
 }
+
+#define LIMIT 100001
+
+// Encapsulate Union-Find within the integer interface
+SetMember* memberArray[LIMIT];
+bool isSameSet(int a, int b) {
+  return FindSet(memberArray[a]) == FindSet(memberArray[b]);
+}
+void unionSet(int a, int b){
+  UnionSet(memberArray[a], memberArray[b]);
+}
+
 
 // Tree
 

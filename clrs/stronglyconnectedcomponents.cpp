@@ -34,7 +34,6 @@ stack<int> s;
 void tarjan( int u){
   dfs_low[u] = dfs_num[u] = dfsCounter;
   dfsCounter++;
-
   // This boolean is to check if the vertex u is reachable in
   // this one recursion run of dfs
   isInTree[u] = true;
