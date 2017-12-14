@@ -90,6 +90,7 @@ int main(){
       }
     }
   }
+
   string input;
   char c;
   bool end = false;
