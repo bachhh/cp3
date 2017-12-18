@@ -23,7 +23,14 @@ int main(){
   int n,d, di;
 
   while(cin >> n){
+
+    // This method of counting rational makes them into a sumation series
+    // Our input will lies between sum(1, x-1) and sum(1, x)
+    // Sum(a, b) being the sum from a to b
+    // and n, is the base column/row of the diagional line numbering
+
     int term = ceil((sqrt(1.0+8*n)-1.0)/2);
+
     int large = term*(term+1)/2;
     if (term%2){
       d = large+1 - n;
