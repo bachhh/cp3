@@ -15,7 +15,6 @@ typedef vector<vi> vvi;
 
 #define LIMIT 100001
 
-
 //  ***** MAIN *****
 int main(){
   //ios::sync_with_stdio(false);
@@ -31,14 +30,16 @@ int main(){
   sort(t, t+n);
 
   int counter = 0;
-  w[0] = 0;
-  for (int i = 1; i < n; ++i) {
-    w[i] = t[i-1] + w[i-1];
-    if(w[i] <= t[i]) counter++;
-  }
+  int last = 0;
+
   for (int i = 0; i < n; ++i) {
-    cout << w[i] << " \n"[i==n-1];
+    if( last <= t[i]){
+      last += t[i];
+      counter++;
+    }
   }
+
+  std::cout << counter << std::endl;
 
   return 0;
 }
