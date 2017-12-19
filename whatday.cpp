@@ -1,71 +1,59 @@
-#include <iostream>
-#include <assert.h>
-#include <stdio.h>
-#include <cmath>
-#include <string>
-#include <string.h>
-#include <vector>
-#include <map>
-#include <list>
-#include <unordered_map>
-#include <sstream>
-#include <stack>
-#include <queue>
-#include <deque>
-#include <iterator>
-#include <bitset>
-#include <algorithm>
-#include <tuple>
-#include <functional>
-#include <ctime>
+#include <bits/stdc++.h>
 
 using namespace std;
-
-typedef long int int32;
-typedef long long int int64;
-typedef unsigned long int uint32;
-typedef unsigned long long int uint64;
 const double pi = acos(-1.0);
 
-#define PI 3.1415926535897932384626433832795
-#define INF (int)1e9
-#define FOREACH(it, l) for (auto it = l.begin(); it != l.end(); it++)
-#define LOOP(n) for (int i = 0; i < n; ++i)
+typedef long int int32; typedef long long int int64;
+typedef unsigned long int uint32; typedef unsigned long long int uint64;
+typedef pair<int, int> ii; typedef vector<ii> vii; typedef vector<int> vi;
+typedef tuple<int, int, int> iii; typedef tuple<int, int, int, int> iiii;
+typedef vector<vi> vvi;
+
 #define MAX(a, b) ( (a > b ) ? a : b )
 #define MIN(a, b) ( (a < b ) ? a : b )
+#define LIMIT 11
+#define INF INT_MAX
 
-void swap(int* a, int *b){
-  *a ^= *b;
-  *b ^= *a;
-  *a ^= *b;
-}
 
 //  ***** MAIN *****
 int main(){
-  ios::sync_with_stdio(false);
-  int n, temp;
-  cin >> n;
-  queue<int> math;
-  queue<int> code;
-  queue<int> sport;
-  for(int i =1; i<=n; ++i){
-    cin >> temp;
-    if(temp == 1) code.push(i);
-    if(temp == 2) math.push(i);
-    if(temp == 3) sport.push(i);
-  }
+  //ios::sync_with_stdio(false);
+  //cin.tie(NULL);
 
-  int teams = MIN(code.size(), MIN(math.size(), sport.size()));
-  cout << teams << endl;
-  if (teams>0){
-    for(int i =0; i < teams; ++i){
-      printf("%d %d %d\n", code.front(), math.front(), sport.front());
-      code.pop();
-      math.pop();
-      sport.pop();
+  uint64 n, m;
+  uint64 px;
+  int k;
+  int p[15];
+
+  while(cin >> n >> m && (n||m)){
+    cin >> k;
+    for (int i = 0; i <= k ; i++) {
+      cin >> p[i];
     }
-  }
 
+    // P(x) mod n+1
+    vector<bool> truth(n+9, false);
+
+    for (int x = 0; x <= m; ++x) {
+      px = 0;
+      // Calculate px using p(x) = a0 + x(a1+x(a2+x...ak-1+xak)..)
+      for (int i = k; i > 0 ; --i) {
+        px += p[i];
+        px *= x;
+        // Modulo after each step to avoid overflow
+        px %= n+1;
+      }
+
+      px += p[0];
+      truth[px%(n+1)] = true;
+    }
+
+    uint64 counter = 0;
+    for (int i = 0; i <= n; i++) {
+      if ( truth[i] ) counter++;
+    }
+
+    std::cout <<  counter << std::endl;
+  }
   return 0;
 }
-
