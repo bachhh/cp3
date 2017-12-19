@@ -1,12 +1,31 @@
 #!/bin/bash
 if [ $1 == "view" ] && [ -n $2 ]; then
   if [ $# -eq 3 ]; then
-    echo $3
     google-chrome > /dev/null "http://codeforces.com/problemset/problem/$(echo $2 | grep -oP "[0-9]*")/$3 " 2>&1
   else
     google-chrome > /dev/null "http://codeforces.com/problemset/problem/$(echo $2 | grep -oP "[0-9]*")/$(echo $2 | grep -oP "[a-z]" )" 2>&1
   fi
-else
-  echo "Misisng arguement(s)"
+elif [ $1 == "edit" ]; then
+  if [ -z $2 ]; then
+    echo "Missing arguement(s)"
+    exit
+  elif [[ $2 =~ ^[0-9]{3}[A-Za-z]$ ]]; then
+    NEWFILE="$2"
+  elif [[ "$2" =~ [0-9]{3} && "$3" =~ [A-Za-z] ]]; then
+    NEWFILE="$2${3,,}"
+  fi
+  cp template.cpp "cf$NEWFILE.cpp"
+  while true; do
+    read -p "Open browser and continue to edit in VIM (Y/N)? " yn
+    if [[ "$yn" =~ [Yy] ]]; then
+      google-chrome > /dev/null "http://codeforces.com/problemset/problem/$(echo $NEWFILE | grep -oP "[0-9]{3}")/$(echo $NEWFILE | grep -oP "[A-Za-z]{1}" )" 2>&1
+      vim "cf$NEWFILE.cpp" input.txt
+      exit
+    elif [[ "$yn" =~ [Nn] ]]; then
+      exit
+    else
+      echo "Please answer yes or no."
+    fi
+  done
 fi
 
