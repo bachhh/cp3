@@ -13,11 +13,46 @@ typedef vector<vi> vvi;
 #define VISITED 1
 #define UNVISITED -1
 
-#define FOREACH(it, l) for (auto it = l.begin(); it != l.end(); it++)
-#define LOOP(i, n) for (int i = 0; i < n; ++i)
 #define MAX(a, b) ( (a > b ) ? a : b )
 #define MIN(a, b) ( (a < b ) ? a : b )
 #define DEBUG(x) cerr << #x << " is " << x << endl;
+#define LIMIT 100001
+
+
+// Rolling my own lower_bound and upper_bound
+int lowerBound(int64_t *v, int key, int to, int from = 0 ){
+  // ### return the index of the largest value no less than key
+  int low = from, high = to, mid;
+  while(high > low){
+    mid = (high-low)/2 + low;
+    if (v[mid] < key ){
+      low = mid+1;
+    }
+    else if (v[mid] >= key){
+      high = mid;
+    }
+  }
+  if (v[low] == key) return low;
+  else return -1;
+}
+
+int upperBound(int64_t *v, int key, int to, int from = 0){
+  // ### return the index of the smallest value which is greater than key
+  int low = from, high = to, mid;
+  while(high > low){
+    mid = (high-low)/2 + low;
+    if (v[mid] <= key ){
+      low = mid+1;
+    }
+    else if (v[mid] > key){
+      high = mid;
+    }
+  }
+
+  // Return end of array + 1 if no value is greater than key
+  if (v[low] <= key) return to+1;
+  return low;
+}
 
 //  ***** MAIN *****
 int main(){
@@ -26,10 +61,9 @@ int main(){
   int n;
   cin  >> n;
 
+  /*  @@@@@@ stupid solution
   map<uint64_t, uint64_t> m;
-  uint64_t temp;
-  uint64_t p_n = 0;
-
+  uint64_t temp, p_n = 0;
   for (int i = 0; i < n; i++) {
     cin >> temp;
     m[temp]++;
@@ -39,7 +73,6 @@ int main(){
   for (auto p : m) {
     powof2 = 2;
     while(powof2 != 0){
-
       if( powof2 > p.first &&
           powof2 - p.first == p.first&&
           p.second > 1){
@@ -54,8 +87,29 @@ int main(){
       powof2 = powof2 << 1;
     }
   }
-  std::cout << p_n/2 << std::endl;
+  */
+  int64_t powerOf2[32];
+  int64_t v[LIMIT];
 
+  for (int i = 0; i <= 31; i++) {
+    powerOf2[i] = ((int64_t)1) << (i+1);
+  }
+
+  for (int i = 0; i < n; i++) {
+    cin >> v[i];
+  }
+  sort(v, v+n);
+  int64_t answer = 0;
+  int64_t key;
+  for (int i = 0; i < n-1; i++) {
+    for (int sum = 0; sum < 31; ++sum) {
+      key = powerOf2[sum] - v[i];
+      int lower = lowerBound(v, key, n-1, i+1 );
+      int upper = upperBound(v, key, n-1, i+1 );
+      if (lower > i ) answer += upper - lower;
+    }
+  }
+  std::cout << answer << std::endl;
   return 0;
 
 }
