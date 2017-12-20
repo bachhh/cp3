@@ -3,9 +3,9 @@
 using namespace std;
 const double pi = acos(-1.0);
 
-typedef long int int32; typedef long long int int64;
-typedef unsigned long int uint32; typedef unsigned long long int uint64;
-typedef pair<int, int> ii; typedef vector<ii> vii; typedef vector<int> vi;
+typedef pair<int, int> ii;
+typedef vector<ii> vii;
+typedef vector<int> vi;
 typedef vector<vi> vvi;
 
 #define INF (int)1e9
@@ -13,11 +13,10 @@ typedef vector<vi> vvi;
 #define VISITED 1
 #define UNVISITED -1
 
-#define FOREACH(it, l) for (auto it = l.begin(); it != l.end(); it++)
-#define LOOP(i, n) for (int i = 0; i < n; ++i)
 #define MAX(a, b) ( (a > b ) ? a : b )
 #define MIN(a, b) ( (a < b ) ? a : b )
-#define DEBUG(x) cerr << #x << " is " << x << endl;
+
+#define LIMIT 100
 
 //  ***** MAIN *****
 int main(){
