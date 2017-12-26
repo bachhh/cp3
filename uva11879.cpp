@@ -40,6 +40,8 @@ map<string, bool> isMultiple = {{"-17" , true },
                                 {"408"  , true },
                                 {"425"  , true },
                                 {"442"  , true },
+                                // After 45-9*5 the subtraction
+                                // will always be positive
                                 {"459"  , true }};
 map<char, string> timesfive = {
                               {'0' ,"0" },
@@ -99,6 +101,7 @@ string Subtract(string a, string b){
 }
 
 bool solve(string a){
+  // Resolve to using cached input
   if (a.size() < 3){
     return isMultiple.find(a) != isMultiple.end();
   }
