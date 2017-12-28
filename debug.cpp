@@ -35,7 +35,7 @@ template < typename T >
 void debug(const vector< T > &v ) {
   typename vector< T > :: const_iterator it;
   for( it = v.begin(); it != v.end(); it++ ) {
-    cout << *it <<  " \n"[it != v.begin()];
+    cout << *it <<  " \n"[it == v.end()];
   }
   cout << "";
 }
