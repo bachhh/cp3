@@ -122,13 +122,13 @@ CP 5.1, 5.2 | UVa [^264, ^113, ^12318], CF [^415B, ^39H] | CF [^672A, ^702A, ^57
 
 CP 5.2 | UVa ^10427, ^107, ^389, ^202], CF ^337C | CF [^545A, ^385A, ^680A, ^535A, ^334A] |
 
-| 24 | [Math] Long Arithmetic |
+| ^24 | [Math] Long Arithmetic |
 
-CP 5.3 | UVa[^713, ^11879, ^10519, ^1230, ?10814] | CF [^712A, ^757A, ^595A, ^581B, 535B] |
+CP 5.3 | UVa[^713, ^11879, ^10519, ^1230, ?10814] | CF [^712A, ^757A, ^595A, ^581B, ^535B] |
 
-| 25 | [Geometry] Points and Lines |
+| ^25 | [Geometry] Points and Lines |
 
-CP 7.1, 7.2.1-2 | UVa [587, 920, 10902, 833], CF 498A | CF [233A, 534A, 279B, 710A, 822A] |
+CP 7.1, 7.2.1-2 | UVa [^587, ^920, ^10902, 833], CF 498A | CF [^233A, 534A, 279B, 710A, 822A] |
 
 | 26 | [Geometry] Points and Lines |
 
