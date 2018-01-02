@@ -94,13 +94,6 @@ bool isIntersect(Point p1, Point q1, Point p2, Point q2) {
     return false; // Doesn't fall in any of the above cases
 }
 
-
-typedef long int int32; typedef long long int int64;
-typedef unsigned long int uint32; typedef unsigned long long int uint64;
-typedef pair<int, int> ii; typedef vector<ii> vii; typedef vector<int> vi;
-typedef vector<vi> vvi;
-
-
 //  ***** MAIN *****
 int main(){
   //ios::sync_with_stdio(false);
@@ -121,7 +114,6 @@ int main(){
     for (int i = s.size()-1; i >= 0; --i) {
       Point p1 = s[i].first;
       Point p2 = s[i].second;
-
       output.push_back(i+1);
       for (int j = i+1; j < n; j++) {
         if(isIntersect(p1, p2, s[j].first, s[j].second)){
@@ -130,7 +122,6 @@ int main(){
         }
       }
     }
-
 
     printf("Top sticks:");
     // Reverse the order

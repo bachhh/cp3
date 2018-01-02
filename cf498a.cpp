@@ -2,13 +2,8 @@
 
 using namespace std;
 
-/*
- * TODO:
- * ### METHODS:
- * Vec::double angle() : return the angle of vector
- * Vec::scale () constructor from another vector with a scale
- * Point::translate(point)
- */
+#define LIMIT 100
+
 
 #define EPS 1e-9
 #define PI 3.141592653589793
@@ -85,51 +80,13 @@ class Line{
     bool isSame(Line l){
       return this->isParallel(l) && fabs(this->c - l.c) < EPS;
     }
-    bool isIntesect(Line l, Point &p){
+    bool isIntersect(Line l, Point &p){
       if(this->isParallel(l)) return false;
       p.x = (l.b * this->c - this->b*l.c)/(l.a*this->b + l.b*this->a);
       if (fabs(this->b) > EPS)  p.y = -(this->a*p.x + this->c);
       else                      p.y = -(l.a*p.x + l.c);
       return true;
     }
-};
-
-class Vec{
-
-  double x;
-  double y;
-
-  Vec(): x(0), y(0) {}
-
-  Vec(double _x, double _y) : x(_x), y(_y) {}
-
-  Vec(Point p1, Point p2){
-    x = p2.x - p1.x;
-    y = p2.y - p1.y;
-  }
-
-  Vec(Point p) : x(p.x), y(p.y) {}
-
-  // Cross product of vectors
-  double operator * (Vec v){
-    return (this->x*v.x + this->y*v.y);
-  }
-
-  double magsq(void){
-    return (x*x+y*y);
-  }
-
-  int isClockwise(Vec v){
-    if((*this)*v > EPS ){
-      return 1;
-    }
-    else if ( (*this)*v < -EPS){
-      return -1;
-    }
-    // Vectors points are collinear
-    return 0;
-  }
-
 };
 
 class Segment{
@@ -139,6 +96,7 @@ class Segment{
     Segment(void) : a(), b(){}
     Segment(Point _a, Point _b) : a(_a), b(_b) {}
     Segment(double x1,double y1,double x2,double y2 ) : a(x1, y1), b(x2, y2) {}
+
     // Given three colinear points p, q, r, the function checks if
     // point q lies on line segment 'pr'
     bool onSegment(Point p, Point q, Point r) {
@@ -147,6 +105,7 @@ class Segment{
            return true;
         return false;
     }
+
     int orientation(Point p, Point q, Point r) {
         double val = (q.y - p.y) * (r.x - q.x) -
                   (q.x - p.x) * (r.y - q.y);
@@ -161,9 +120,11 @@ class Segment{
     }
 
     bool isIntersect(Line l2){
-      int signa = a.x*l2.a + a.y*l2.b +l2.c;
-      int signb = b.x*l2.b + b.y*l2.b +l2.c;
-      return (signa/signa != signb/signb);
+      double p1 = l2.a*a.x + l2.b*a.y + l2.c;
+      double p2 = l2.a*b.x + l2.b*b.y + l2.c;
+      if(p1 > EPS && p2 < -EPS) return true;
+      else if (p1 < -EPS && p2 > EPS ) return true;
+      return false;
     }
 
     bool isIntersect(Point p1, Point q1, Point p2, Point q2 ){
@@ -186,6 +147,27 @@ int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
 
+  double x, y;
+  cin >> x >> y; Point h(x, y);
+
+  cin >> x >> y; Point u(x, y);
+
+  int n; cin >> n;
+
+  double a, b, c;
+  vector<Line> v;
+  for (int i = 0; i < n; i++) {
+    cin >> a >> b >> c;
+    v.push_back(Line(a, b, c));
+  }
+
+  int counter=0;
+  Segment uh(u, h);
+  for (int i = 0; i < n; i++) {
+    if (uh.isIntersect(v[i]))
+    counter++;
+  }
+  std::cout << counter << std::endl;
   return 0;
 }
 
