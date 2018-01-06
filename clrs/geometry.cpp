@@ -95,30 +95,22 @@ class Line{
 };
 
 class Vec{
-
   double x;
   double y;
-
   Vec(): x(0), y(0) {}
-
   Vec(double _x, double _y) : x(_x), y(_y) {}
-
   Vec(Point p1, Point p2){
     x = p2.x - p1.x;
     y = p2.y - p1.y;
   }
-
   Vec(Point p) : x(p.x), y(p.y) {}
-
   // Cross product of vectors
   double operator * (Vec v){
     return (this->x*v.x + this->y*v.y);
   }
-
   double magsq(void){
     return (x*x+y*y);
   }
-
   int isClockwise(Vec v){
     if((*this)*v > EPS ){
       return 1;
@@ -129,7 +121,6 @@ class Vec{
     // Vectors points are collinear
     return 0;
   }
-
 };
 
 class Segment{
@@ -139,7 +130,6 @@ class Segment{
     Segment(void) : a(), b(){}
     Segment(Point _a, Point _b) : a(_a), b(_b) {}
     Segment(double x1,double y1,double x2,double y2 ) : a(x1, y1), b(x2, y2) {}
-
     // Given three colinear points p, q, r, the function checks if
     // point q lies on line segment 'pr'
     bool onSegment(Point p, Point q, Point r) {
@@ -148,7 +138,6 @@ class Segment{
            return true;
         return false;
     }
-
     int orientation(Point p, Point q, Point r) {
         double val = (q.y - p.y) * (r.x - q.x) -
                   (q.x - p.x) * (r.y - q.y);

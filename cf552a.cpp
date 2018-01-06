@@ -8,20 +8,18 @@ using namespace std;
 int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
-  int32_t n; cin >> n;
+  int n;
 
-  int digit = floor(log10(n))+1;
-
-  int64_t counter = 0;
-
-  while(digit>0){
-    counter += (n-pow(10, digit-1)+1)*digit;
-    n = (int32_t)pow(10, digit-1)-1;
-    digit--;
+  cin >> n;
+  int x1, y1, x2, y2;
+  int counter = 0;
+  for (int i = 0; i < n; i++) {
+    cin >> x1 >> y1 >> x2 >> y2;
+    counter += (y2-y1+1)*(x2-x1+1);
   }
   std::cout << counter << std::endl;
 
+
   return 0;
 }
-
 
