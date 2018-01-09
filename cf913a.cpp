@@ -12,10 +12,11 @@ int main(){
   int64_t n, m;
   cin >> n >> m;
 
-  if ( log2(m) > n){
-    std::cout << m% ((int64_t)(1<<n)) << std::endl;
+  if (n > 26){
+    std::cout << m << std::endl;
   }
   else {
+    m -= ((m>>n)<<n);
     std::cout << m << std::endl;
   }
 
