@@ -130,17 +130,17 @@ CP 5.3 | UVa[^713, ^11879, ^10519, ^1230, ?10814] | CF [^712A, ^757A, ^595A, ^58
 
 CP 7.1, 7.2.1-2 | UVa [^587, ^920, ^10902, ^833], ^CF 498A | CF [^233A, ^534A, ^279B, ^710A, ^822A] |
 
-| 26 | [Geometry] Points and Lines |
+| ^26 | [Geometry] Points and Lines |
 
 CP 7.2.1-2 | UVa [^191, ^11519], CF [^671A, ^593B, ^617C] | CF [^38A, ^538B, ^552A, ^352A, 672B] |
 
-| 27 | [Strings] Basic Algos |
+| ^27 | [Strings] Basic Algos |
 
-CP 6.1-3 | UVa [11588, 10252], CF [43B, 551B, 335A] | CF [404A, 483A, 499A, 447B, 723B] |
+CP 6.1-3 | UVa [^11588, ^10252], CF [^43B, ^551B, 335A] | CF [404A, 483A, 499A, 447B, 723B] |
 
-| 28 | [Strings] Basic Algos |
+| ^28 | [Strings] Basic Algos |
 
-CP 6.3 | UVa [10340, 409, 10878], CF [50B, 91A] | CF [381A, 586A, 680B, 445A, 465A] |
+CP 6.3 | UVa [^10340, ^409, ^10878], CF [50B, 91A] | CF [381A, 586A, 680B, 445A, 465A] |
 
 ### Notes
 - To find the problems:
