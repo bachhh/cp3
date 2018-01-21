@@ -7,16 +7,6 @@ using namespace std;
 int n, d;
 char v[LIMIT];
 int memo[LIMIT];
-int minJump(int x){
-  if (x <= 1) return 0;
-  if (memo[x] != -1) return memo[x];
-  int mi = INT_MAX;
-  for (int i = 1; (x-i)>=1 && i <= d; i++) {
-    if(v[x-i] == '1') mi = min(mi, minJump(x-i));
-  }
-  if (mi == -1 || mi == INT_MAX) return memo[x] = -1;
-  else return memo[x] = mi+1;
-}
 
 //  ***** MAIN *****
 int main(){
@@ -27,7 +17,7 @@ int main(){
   v[0] = 1;
 
   for (int i = 0; i <=n; i++) {
-    memo[i] = -1;
+    memo[i] = INT_MAX;
   }
 
   char temp;
@@ -35,7 +25,22 @@ int main(){
     cin >> v[i];
   }
 
-  cout << minJump(n) << endl;
+  int right = 1, left =1;
+  memo[1] = 0;
+
+  while(left <= n){
+    if (v[left] == '1' && memo[left] < INT_MAX){
+      for (int i = 1; i <= d; i++) {
+        if (v[left+i] == '1'){
+          memo[left+i] = min(memo[left+i],memo[left] + 1);
+        }
+      }
+    }
+    left++;
+  }
+
+  std::cout << (memo[n] == INT_MAX ? -1: memo[n]) << std::endl;
+
 
   return 0;
 }
