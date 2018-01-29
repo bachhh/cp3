@@ -12,45 +12,42 @@ int main(){
   map<string, int> factor;
   getline(cin, temp);
   myname = temp;
-
   getline(cin, temp);
+
   int n = stoi(temp);
   for (int i = 0; i < n; i++) {
     getline(cin, temp);
     string firstname, action, secondname;
     int index = temp.find(' ');
-
     firstname = temp.substr(0,index);
-
     action = temp.substr(index+1, temp.find(' ',index+1)-index-1);
 
     index = temp.find(' ',index+1);
     if (action == "likes"){
       secondname = temp.substr(index+1, temp.find('\'', index+1)- index - 1);
-      if (firstname == myname) factor[secondname] += 5;
-      else {
-        factor[firstname] += 0;
-        factor[secondname] += 0;
-      }
+      if (myname == firstname)
+        factor[secondname] += 5;
+      if (myname == secondname)
+        factor[firstname] += 5;
     }
     else {
       index = temp.find(' ',index+1);
       secondname = temp.substr(index+1, temp.find('\'', index+1) - index-1);
       if (action == "posted"){
-        if (firstname == myname) factor[secondname] += 15;
-        else {
-          factor[firstname] += 0;
-          factor[secondname] += 0;
-        }
+        if (myname == firstname)
+          factor[secondname] += 15;
+        if (myname == secondname)
+          factor[firstname] += 15;
       }
       else if(action == "commented"){
-        if (firstname == myname) factor[secondname] += 10;
-        else {
-          factor[firstname] += 0;
-          factor[secondname] += 0;
-        }
+        if (myname == firstname)
+          factor[secondname] += 10;
+        if (myname == secondname)
+          factor[firstname] += 10;
       }
     }
+    factor[firstname] += 0;
+    factor[secondname] += 0;
   }
 
   vector<pair<int, string>> v;
