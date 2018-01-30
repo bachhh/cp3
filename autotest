@@ -2,7 +2,8 @@
 make FILE=$1
 if [ $? -eq 0 ]
 then
-  cat input.txt | ./a.out
+  cat input.txt | ./a.out > output.txt
+  diff answer.txt output.txt
 else
   echo "Compilation error, exit."
 fi
