@@ -23,6 +23,7 @@ int main(){
 
   int index = m;
   int output = (sum >= k)?(sum-k+1):0;
+
   while(index > 0 && sum >= k){
     if (v[index] < sum ){
       sum -= v[index];
@@ -31,12 +32,15 @@ int main(){
     }
     else {
       v[index] -= sum;
+      sum = 0;
     }
   }
+
   int l = 1;
   int r = m+1;
   while(r <= LIMIT){
     sum += v[r]; sum -= v[l];
+
     if(sum >= k){
       v[r] = v[r] - (sum - k + 1);
       output += sum-k+1;

@@ -2,6 +2,7 @@
 a.out
 input.txt
 output.txt
+answer.txt
 test.cpp
 *.swap
 *.swp
