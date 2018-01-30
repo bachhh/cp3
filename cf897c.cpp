@@ -42,7 +42,7 @@ char solve(int64_t index, int dep){
     return s3[index-sec4-1];
   }
   else {
-    cerr << "!!!!!" << endl;
+    std::cout << '.' << std::endl;
   }
 
 }
@@ -64,14 +64,14 @@ int main(){
 
   for (int i = 0; i < q; i++) {
     cin >> n >> k;
-    if (n < 60 &&  k > flen[n]){
+    if (n < 56 &&  k > flen[n]){
       cout << '.';
       continue;
     }
-
     if (n > 55){
       if (k <= (n-55)*s1.size()){
-        return s1[(k-1)%s1.size()];
+        cout << s1[(k-1)%s1.size()];
+        continue;
       }
       else {
         k -= (n-55)*s1.size();
@@ -81,7 +81,6 @@ int main(){
     char c = solve(k, n);
     std::cout << c;
   }
-
   std::cout << std::endl;
 
   return 0;
