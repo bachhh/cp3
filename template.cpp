@@ -3,6 +3,7 @@
 using namespace std;
 
 #define LIMIT 100
+typedef pair<int64_t, int64_t> ii;
 
 //  ***** MAIN *****
 int main(){
