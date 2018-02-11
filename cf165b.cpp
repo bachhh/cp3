@@ -1,73 +1,42 @@
-#include <iostream>
-#include <assert.h>
-#include <iostream>
-#include <assert.h>
-#include <stdio.h>
-#include <cmath>
-#include <string>
-#include <string.h>
-#include <vector>
-#include <map>
-#include <list>
-#include <unordered_map>
-#include <sstream>
-#include <stack>
-#include <queue>
-#include <deque>
-#include <iterator>
-#include <bitset>
-#include <algorithm>
-#include <tuple>
-#include <functional>
-#include <ctime>
+#include <bits/stdc++.h>
 
 using namespace std;
-typedef long int int32;
-typedef long long int int64;
-typedef unsigned long int uint32;
-typedef unsigned long long int uint64;
-const double pi = acos(-1.0);
 
-#define PI 3.1415926535897932384626433832795
-#define INF (int)1e9
-#define FOREACH(it, l) for (auto it = l.begin(); it != l.end(); it++)
-#define LOOP(n) for (int z = 0; z < n; ++z)
-#define MAX(a, b) ( (a > b ) ? a : b )
-#define MIN(a, b) ( (a < b ) ? a : b )
+#define LIMIT 100
+typedef pair<int64_t, int64_t> ii;
 
-void swap(int* a, int *b){
-  *a ^= *b;
-  *b ^= *a;
-  *a ^= *b;
+int64_t n, k;
+
+int64_t solve(int64_t v){
+  int64_t output = 0;
+  int64_t p = 1;
+  while(v/p > 0){
+    output += v/p;
+    p *= k;
+  }
+  return output;
 }
-
 //  ***** MAIN *****
 int main(){
-  ios::sync_with_stdio(false);
-  int n, k; cin >> n >> k;
-  int r_v, l_v, v, sum, divisor;
-  // Search in domain for value of v
+  //ios::sync_with_stdio(false);
+  cin.tie(NULL);
+  cin >>  n >> k;
 
-  l_v = 1, r_v = n;
+  int64_t l = 0;
+  int64_t h = 1000000000;
 
-  while(l_v < r_v ){
-    v = (l_v + r_v)/2;
-    sum = 0;
-    divisor = 1;
-    while( v/divisor > 0){
-      sum += v/divisor;
-      divisor *= k;
+  while(l< h){
+    int64_t m = l + (h-l)/2;
+    if(solve(m) < n){
+      l = m+1;
     }
-
-    if (sum >= n){
-      r_v = v;
-    }
-    else{
-      l_v = v+1;
+    else {
+      h = m;
     }
   }
-  cout << l_v << endl;
+  if (solve(l) >= n){
+    std::cout << l << std::endl;
+  }
 
   return 0;
 }
-
