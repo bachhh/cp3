@@ -4,6 +4,7 @@ using namespace std;
 
 #define LIMIT 100
 typedef pair<int64_t, int64_t> ii;
+typedef int64_t ll;
 
 void bfPrimeGen(vector<int64_t> &v, int64_t limit){
   v.push_back(2);
@@ -71,6 +72,82 @@ bool primeTest(int64_t x, int k){
   }
   return true;
 
+}
+
+ll primes[100];
+ll numPF(ll n){
+  int i = 0;
+  ll PF = primes[i];
+  ll ans = 0;
+  while(PF*PF <= n){
+    while(n%PF == 0){
+      n /= PF;
+      ans++;
+    }
+    PF = primes[++i];
+  }
+  if(n != 1) ans++;
+  return ans;
+}
+
+ll numDiffPF(ll n){
+  ll i = 0, PF = primes[i], ans = 0;
+  while(PF*PF <= n){
+    bool flag = false;
+    while(n%PF == 0){
+      n /= PF;
+      flag = true;
+    }
+    if(flag) ans++;
+    PF = primes[++i];
+  }
+  if (n!=1) ans++;
+  return ans;
+}
+
+ll sumPF(ll n){
+  ll i = 0, PF = primes[i], ans = 0;
+  while(PF*PF <= n){
+    while(n%PF == 0){
+      n /= PF;
+      ans += PF;
+    }
+    PF = primes[++i];
+  }
+  if (n != 1) ans += n;
+  return ans;
+}
+
+ll numDiv(ll n){
+  ll i = 0, PF = primes[i], ans = 1;
+  while(PF*PF <= n){
+    ll p = 0;
+    while(n%PF == 0){
+      n /= PF;
+      p++;
+    }
+    ans *= (p+1);
+    PF = primes[++i];
+  }
+  if (n != 1) ans *= 2;
+  return ans;
+}
+
+ll sumDiv(ll n){
+  ll ans = 1, i = 0, PF = primes[i];
+  while(PF*PF <= n){
+    ll power = 0;
+    while(n%PF == 0){
+      n /= PF;
+      power++;
+    }
+    ans *= ((ll)pow((double)PF, power+1)-1)/(PF-1);
+    PF = primes[i++];
+  }
+  if (n != 1){
+    ans *= ((ll)pow((double)n, 2.0)-1)/(n-1);
+  }
+  return ans;
 }
 
 //  ***** MAIN *****
