@@ -33,7 +33,7 @@ int main(){
     int num, den;
     if (rep == ""){
       num = stoi(nonrep);
-      den = pow(10, s.size()+1);
+      den = pow(10, s.size());
     }
     else {
       num = stoi(nonrep+rep) - toInt(nonrep);
