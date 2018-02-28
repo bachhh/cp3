@@ -25,6 +25,17 @@ int solve2(int i, int state, int in, int out){
 
   int ret = -200010;
 
+  if (state == 1){
+
+    // continue interval, taking in, or swap out this value
+    ret = max(ret, solve2(i+1, 1, in, out)+a[i]);
+    if ( in < k )
+      ret = max(ret, solve2(i+1, 1, in+1, out));
+
+    // stop interval right here
+    ret = max(ret, solve2(i+1, 2, in, out));
+  }
+
   if (state == 0){
     // start the interval, or don't
     ret = max(solve2(i+1, 1, in, out) + a[i],
@@ -36,16 +47,6 @@ int solve2(int i, int state, int in, int out){
       ret = max(ret, solve2(i+1, 0, in, out+1)+a[i]);
   }
 
-  if (state == 1){
-
-    // continue interval, taking in, or swap out this value
-    ret = max(ret, solve2(i+1, 1, in, out)+a[i]);
-    if ( in < k )
-      ret = max(ret, solve2(i+1, 1, in+1, out));
-
-    // stop interval right here
-    ret = max(ret, solve2(i+1, 2, in, out));
-  }
 
   if(state == 2){
 
@@ -81,7 +82,7 @@ int main(){
     cin >> a[i];
   }
 
-  cout<<  solve2(0, 0, 0, 0) << endl;
+  cout <<  solve2(0, 0, 0, 0) << endl;
 
   return 0;
 }

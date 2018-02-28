@@ -24,54 +24,60 @@ void bfPrimeGen(vector<int64_t> &v, int64_t limit){
 
 void sieveOfEras(vector<int64_t> v, int64_t limit){}
 
-int64_t power(int64_t a, int64_t b, int mod){
-  int64_t output = 1;
+long long powerMod(int a, int b, int mod){
+  long long output = 1;
   a %= mod;
 
   while(b>0){
-    if (b&1) {
+    if (b%2 == 1) {
       output = (output*a)%mod;
     }
     b /= 2;
     a = (a*a)%mod;
   }
-  return output;
+  return output%mod;
 }
 
-bool millerTest(int x, int d){
-
-  int a= 2 +rand()%( x-4 );
-  int y = power(a, d, x);
-
-  if ( y == 1 || y == x-1){
-    return true;
+long long mulMod(long long a, long long b, long long mod){
+  long long output = 1;
+  while(b > 0){
+    if (b%2){
+      a = (a*output)%mod;
+    }
+    output = (output*output)%mod;
+    b = b >> 1;
   }
-
-  while(d != x-1){
-    y = (y*y) %x;
-    d *= 2;
-    if(y==1) return false;
-    if (y == x-1) return true;
-  }
-  return false;
+  return output % mod;
 }
 
-bool primeTest(int64_t x, int k){
+bool millerRabin(long long p, int d){
+  if (p<2) return false;
+  if (p> 2 && p&1) return false;
+  long long s = p-1;
+  while(s%2 == 0) s/= 2;
 
-  if(x<=1) return false;
-  if (x == 2 || x == 3) return true;
-  if (x%2==0) return false;
+  for (int i = 0; i < d; ++i) {
 
-  int64_t d = x-1;
-  while(d%2 == 0){
-    d /= 2;
+    long long a = rand() % (p-1)+1;
+    long long temp = s;
+    // a^s mod p
+    long long mod = powerMod(a, temp,p );
+    if (mod == 1) continue;
+
+    while(temp < p-1){
+      // repeated squaring of (a^s) mod p
+      mod = mulMod(mod, mod, p);
+      temp *= 2;
+      if (mod == 1 || mod == -1) break;
+    }
+
+    if (temp == p-1 && mod != 1){
+      return false;
+    }
+
   }
 
-  for (int i = 0; i < k; ++i) {
-    if(millerTest(x, d) == false) return false;
-  }
   return true;
-
 }
 
 ll primes[100];
@@ -155,7 +161,7 @@ int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
   for (int i = 0; i < 100; ++i) {
-    printf("%d %d\n", i, primeTest(i, 10));
+    printf("%d %d\n", i, millerRabin(i, 10));
   }
 
   return 0;
