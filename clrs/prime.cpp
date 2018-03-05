@@ -39,12 +39,13 @@ long long powerMod(int a, int b, int mod){
 }
 
 long long mulMod(long long a, long long b, long long mod){
-  long long output = 1;
+  long long output = 0;
+  a %= mod;
   while(b > 0){
     if (b%2){
-      a = (a*output)%mod;
+      output = (a+output)%mod;
     }
-    output = (output*output)%mod;
+    output = (output*2)%mod;
     b = b >> 1;
   }
   return output % mod;
