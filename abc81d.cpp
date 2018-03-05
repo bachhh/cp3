@@ -3,7 +3,7 @@
 using namespace std;
 
 #define LIMIT 100
-typedef pair<int64_t, int64_t> ii;
+typedef pair<int, int> ii;
 typedef int64_t ll;
 int gcd(ll a, ll b) { return (b==0)?a:gcd(b, a%b); }
 int lcm(ll a, ll b) { ll i=(a/gcd(a,b))*b; assert(i>0); return i; }
@@ -16,45 +16,47 @@ int main(){
   int n; cin >> n;
   int a[52] = {0};
 
-  for (int i = 1; i < n; ++i) {
+  int ma = INT_MIN, mi = INT_MAX;
+  int imax, imin;
+
+  for (int i = 0; i < n; ++i) {
     cin >> a[i];
-  }
-
-
-  vector<ii> op;
-  for(int i = 1; i < n; ++i){
-    if(a[i] <0 ){
-      if( a[i-1] < 0 ){
-        op.push_back(ii(i+1, i));
-        a[i-1] += a[i];
-      }
-      else {
-        if(abs(a[i]) > abs(a[i-1]) ){
-          op.push_back(ii(i+1, i));
-          a[i-1] += a[i];
-          op.push_back(ii(i+1, i));
-          a[i-1] += a[i];
-        }
-        else {
-          op.push_back(ii(i, i+1));
-          a[i] += a[i-1];
-          op.push_back(ii(i, i+1));
-          a[i] += a[i-1];
-        }
-      }
+    if (a[i] > ma){
+      ma = a[i];
+      imax = i;
     }
-    if (a[i] >0){
-      if (a[i-1] > a[i]){
-        op.push_back(ii(i+1, i));
-        a[i] += a[i-1];
-      }
+    if(a[i] < mi){
+      mi = a[i];
+      imin = i ;
     }
   }
 
-  std::cout << op.size() << std::endl;
-  for(auto p : op){
-    printf("%ld %ld\n",p.first, p.second);
+  if(abs(ma) > abs(mi)){
+    std::cout << 2*n-1 << std::endl;
+    for (int i = 0; i < n; ++i) {
+      printf("%d %d\n", imax+1, i+1);
+      a[i] += a[imax];
+    }
+    for (int i = 1; i < n; ++i) {
+      printf("%d %d\n", i, i+1);
+      a[i] += a[i-1];
+    }
   }
+  else {
+    std::cout << 2*n-1 << std::endl;
+    for (int i = 0; i < n; ++i) {
+      printf("%d %d\n", imin+1, i+1);
+      a[i] += a[imin];
+    }
+    for (int i = n-2; i >= 0; --i) {
+      printf("%d %d\n", i+2, i+1);
+      a[i] += a[i+1];
+    }
+  }
+
+  //for (int i = 0; i < n; ++i) { cout << a[i] << " \n"[i==n-1];}
+
+
 
   return 0;
 }
