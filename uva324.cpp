@@ -1,14 +1,16 @@
-#include <vector>
-#include <cstdlib>
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <ctime>
+#include <bits/stdc++.h>
+
 using namespace std;
+
+#define LIMIT 100
+typedef pair<int64_t, int64_t> ii;
+typedef int64_t ll;
+int gcd(ll a, ll b) { return (b==0)?a:gcd(b, a%b); }
+int lcm(ll a, ll b) { ll i=(a/gcd(a,b))*b; assert(i>0); return i; }
 
 // base and base_digits must be consistent
 const int base = 10;
-const int base_digits = 9;
+const int base_digits = 1;
 
 struct BigInt {
     vector<int> a;
@@ -367,3 +369,36 @@ struct BigInt {
         return res;
     }
 };
+
+
+//  ***** MAIN *****
+int main(){
+  //ios::sync_with_stdio(false);
+  cin.tie(NULL);
+  int n;
+  int c[367][10];
+  memset(c, 0, sizeof(c[0][0])*367*10);
+
+  BigInt bi(1);
+
+  string s;
+
+  for(int i =1; i <= 366; ++i){
+    bi *= i;
+    s = bi.toString();
+    for (int j = 0; j < s.size(); ++j) {
+      if(unsigned(s[j]-'0') <= unsigned(9)) c[i][s[j]-'0']++;
+    }
+
+  }
+
+  while(cin >> n && n){
+    printf("%d! --\n", n);
+    printf("  (0)\t%d\t(1)\t%d\t(2)\t%d\t(3)\t%d\t(4)\t%d\n",
+        c[n][0],c[n][1],c[n][2],c[n][3],c[n][4]);
+    printf("  (5)\t%d\t(6)\t%d\t(7)\t%d\t(8)\t%d\t(9)\t%d\n",
+        c[n][5],c[n][6],c[n][7],c[n][8],c[n][9]);
+  }
+  return 0;
+}
+
