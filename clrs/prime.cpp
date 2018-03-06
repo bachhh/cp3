@@ -6,6 +6,8 @@ using namespace std;
 typedef pair<int64_t, int64_t> ii;
 typedef int64_t ll;
 
+ll primes[100];
+
 void bfPrimeGen(vector<int64_t> &v, int64_t limit){
   v.push_back(2);
   v.push_back(3);
@@ -21,8 +23,6 @@ void bfPrimeGen(vector<int64_t> &v, int64_t limit){
     if (isPrime) v.push_back(i);
   }
 }
-
-void sieveOfEras(vector<int64_t> v, int64_t limit){}
 
 long long powerMod(int a, int b, int mod){
   long long output = 1;
@@ -81,7 +81,7 @@ bool millerRabin(long long p, int d){
   return true;
 }
 
-ll primes[100];
+
 ll numPF(ll n){
   int i = 0;
   ll PF = primes[i];
@@ -155,6 +155,20 @@ ll sumDiv(ll n){
     ans *= ((ll)pow((double)n, 2.0)-1)/(n-1);
   }
   return ans;
+}
+
+
+ll eulerPhi(vector<int> primes, ll n){
+  ll ret = n;
+  for(int p : primes){
+    if((ll)p*p > n) break;
+    if(n%p == 0){
+      while(n%p == 0) n /= p;
+      ret *= (1.0 - (1.0)/ (float) p);
+    }
+  }
+  if(n>1) ret *= (1.0 - (1.0)/(float)n);
+  return ret;
 }
 
 //  ***** MAIN *****
