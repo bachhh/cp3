@@ -12,6 +12,20 @@ int lcm(ll a, ll b) { ll i=(a/gcd(a,b))*b; assert(i>0); return i; }
 int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
+  int n; cin >> n;
+  bool d[100];
+  memset(d, 0, sizeof(d[0])*100);
+
+  int z;
+  for (int i = 0; i < n; ++i) {
+    cin >> z;
+    d[z-1] = true;
+  }
+  z = 0;
+  for (int i = 0; i < 100; ++i) {
+    z += d[i];
+  }
+  std::cout << z << std::endl;
 
   return 0;
 }

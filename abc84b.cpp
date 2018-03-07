@@ -11,7 +11,20 @@ int lcm(ll a, ll b) { ll i=(a/gcd(a,b))*b; assert(i>0); return i; }
 //  ***** MAIN *****
 int main(){
   //ios::sync_with_stdio(false);
+
   cin.tie(NULL);
+  int a, b; cin >> a >> b;
+  string s; cin >> s;
+  int flag = true;
+  flag &=  (s.size() == a+b+1);
+  for (int i = 0; i < s.size(); ++i) {
+    if (i == a) flag &= s[i] == '-';
+    else { flag &= (s[i] <= '9' && s[i] >= '0');
+    }
+  }
+  if (flag) std::cout << "Yes" << std::endl;
+  else  std::cout << "No" << std::endl;
+
 
   return 0;
 }

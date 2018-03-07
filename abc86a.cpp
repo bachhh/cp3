@@ -12,6 +12,10 @@ int lcm(ll a, ll b) { ll i=(a/gcd(a,b))*b; assert(i>0); return i; }
 int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
+  int a, b;
+  cin >> a >> b;
+  if((a*b)%2) std::cout << "Odd" << std::endl;
+  else std::cout << "Even" << std::endl;
 
   return 0;
 }

@@ -13,6 +13,17 @@ int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
 
+  int n, k; cin >> n >> k;
+  char m[1000][1000];
+  int o = 0;
+
+  int x, y;
+
+  for (int i = 0; i < n; ++i) {
+    cin >> x >> y;
+    cin >> m[x][y];
+  }
+
   return 0;
 }
 

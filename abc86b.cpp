@@ -10,8 +10,19 @@ int lcm(ll a, ll b) { ll i=(a/gcd(a,b))*b; assert(i>0); return i; }
 
 //  ***** MAIN *****
 int main(){
+
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
+  int a, b;
+  cin >> a >> b;
+
+  int c = ((int)pow(10,((int)log10(b)+1)))*a + b;
+  if(sqrt(c) == floor(sqrt(c))){
+    std::cout << "Yes" << std::endl;
+  }
+  else {
+    std::cout << "No" << std::endl;
+  }
 
   return 0;
 }
