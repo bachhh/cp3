@@ -125,38 +125,34 @@ ll sumPF(ll n){
   return ans;
 }
 
-ll numDiv(ll n){
-  ll i = 0, PF = primes[i], ans = 1;
-  while(PF*PF <= n){
-    ll p = 0;
-    while(n%PF == 0){
-      n /= PF;
-      p++;
-    }
-    ans *= (p+1);
-    PF = primes[++i];
-  }
-  if (n != 1) ans *= 2;
-  return ans;
-}
-
-ll sumDiv(ll n){
-  ll ans = 1, i = 0, PF = primes[i];
-  while(PF*PF <= n){
+ll numDiv(ll N) {
+  ll PF_idx = 0, PF = primes[PF_idx], ans = 1;
+  // start from ans = 1
+  while (PF * PF <= N) {
     ll power = 0;
-    while(n%PF == 0){
-      n /= PF;
-      power++;
-    }
-    ans *= ((ll)pow((double)PF, power+1)-1)/(PF-1);
-    PF = primes[i++];
+    // count the power
+    while (N % PF == 0) { N /= PF; power++; }
+    ans *= (power + 1);
+    // according to the formula
+    PF = primes[++PF_idx];
   }
-  if (n != 1){
-    ans *= ((ll)pow((double)n, 2.0)-1)/(n-1);
-  }
+  if (N != 1) ans *= 2;
+  // (last factor has pow = 1, we add 1 to it)
   return ans;
 }
 
+ll sumDiv(ll N) {
+  ll PF_idx = 0, PF = primes[PF_idx], ans = 1;
+  // start from ans = 1
+  while (PF * PF <= N) {
+    ll power = 0;
+    while (N % PF == 0) { N /= PF; power++; }
+    ans *= ((ll)pow((double)PF, power + 1.0) - 1) / (PF - 1);
+    PF = primes[++PF_idx];
+  }
+  if (N != 1) ans *= ((ll)pow((double)N, 2.0) - 1) / (N - 1); // last
+  return ans;
+}
 
 ll eulerPhi(vector<int> primes, ll n){
   ll ret = n;
