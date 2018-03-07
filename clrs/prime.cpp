@@ -167,6 +167,19 @@ ll eulerPhi(vector<int> primes, ll n){
   return ret;
 }
 
+int extendedEuclid(int a, int b, int &x, int &y) {
+  int d;
+  if (b == 0) { x = 1; y = 0; return a; }
+  // base case
+  d = extendedEuclid(b, a % b,x, y);
+  // similar as the original gcd
+  int x1 = y;
+  int y1 = x - (a / b) * y;
+  x = x1;
+  y = y1;
+  return d;
+}
+
 //  ***** MAIN *****
 int main(){
   //ios::sync_with_stdio(false);
