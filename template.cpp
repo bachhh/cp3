@@ -3,6 +3,8 @@
 using namespace std;
 
 #define LIMIT 100
+#define MOD 1000000007ll
+#define INF 1e9
 typedef long long ll;
 typedef pair<ll, ll> ii;
 int gcd(ll a, ll b) { return (b==0)?a:gcd(b, a%b); }
