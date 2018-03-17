@@ -154,7 +154,7 @@ ll sumDiv(ll N) {
   return ans;
 }
 
-ll eulerPhi(vector<int> primes, ll n){
+ll phi(ll n){
   ll ret = n;
   for(int p : primes){
     if((ll)p*p > n) break;

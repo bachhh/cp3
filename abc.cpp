@@ -15,14 +15,30 @@ int main(){
 
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
-  int n, m;
-  cin >> n >> m;
-  int t = n*m;
 
-  if(m>1) t -= n*2;
-  if(n>1) t -= m*2;
+  int n, k;
+  cin >> n >>k;
 
-  if(n>1 && m > 1) t += 4;
+  int t = 0;
+  if(k == 0){
+    for (int b = k+1; b <= n; ++b) {
+      for (int r = k; r <= b ; ++r) {
+        for(int c = 0; c*b+r<= n; ++c){
+          int a = c*b+r;
+          printf("%d = %d*%d + %d\n", a, b, c, r);
+          t++;
+        }
+      }
+    }
+  }
+  else {
+    for (int b = k+1; b <= n; ++b) {
+      for (int r = k; r < b ; ++r) {
+        t+= (n-r)/b;
+      }
+    }
+  }
+
   std::cout << t << std::endl;
 
   return 0;
