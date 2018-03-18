@@ -3,6 +3,7 @@ a.out
 input.txt
 output.txt
 answer.txt
+error.log
 test.cpp
 *.swap
 *.swp
