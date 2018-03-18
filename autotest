@@ -2,7 +2,7 @@
 make FILE=$1
 if [ $? -eq 0 ]
 then
-  cat input.txt | ./a.out 2>&1 tee -a output.txt
+  cat input.txt | ./a.out | tee output.txt
   cat output.txt | xsel -ib
 else
   echo "Compilation error, exit."
