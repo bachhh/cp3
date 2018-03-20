@@ -16,28 +16,23 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {-1, 0, 1, 0};
 int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
-
   int tc; cin >> tc;
 
-  while(tc--){
+  for (int i = 1; i <= tc; ++i) {
+    int n; cin >> n;
 
-    int degree;
-    cin >> degree;
-
-    int a[22];
-    for (int i = 0; i <= degree; ++i) { cin >> a[i]; }
-    int d; cin >> d; int k; cin >> k;
-    int i = 1;
-
-    while(k>0){ k-= d*i; i++; }
-    i--;
-
-    ll o= 0;
-    for (int j = 0; j <= degree; ++j) {
-      o += pow(i, j)*a[j];
+    int a[12];
+    for (int j = 0; j < n; ++j) {
+      cin >> a[j];
     }
-    std::cout << o << std::endl;
 
+    int t;
+    if (n%2) t = a[n/2];
+    else {
+      t = (a[n/2] + a[n/2-1])/2;
+    }
+
+    printf("Case %d: %d\n", i, t);
   }
 
   return 0;

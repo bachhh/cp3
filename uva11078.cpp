@@ -18,27 +18,23 @@ int main(){
   cin.tie(NULL);
 
   int tc; cin >> tc;
-
   while(tc--){
+    int n; cin >> n;
+    int v[100000];
+    int t = -1;
 
-    int degree;
-    cin >> degree;
-
-    int a[22];
-    for (int i = 0; i <= degree; ++i) { cin >> a[i]; }
-    int d; cin >> d; int k; cin >> k;
-    int i = 1;
-
-    while(k>0){ k-= d*i; i++; }
-    i--;
-
-    ll o= 0;
-    for (int j = 0; j <= degree; ++j) {
-      o += pow(i, j)*a[j];
+    cin >> v[0];
+    int maxsen = v[0];
+    for (int i = 1; i < n; ++i) {
+      cin >> v[i];
+      t = max(t, maxsen - v[i]);
+      maxsen = max(v[i], maxsen);
     }
-    std::cout << o << std::endl;
+
+    std::cout << max(-1, t) << std::endl;
 
   }
+
 
   return 0;
 }

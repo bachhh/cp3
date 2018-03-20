@@ -16,28 +16,18 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {-1, 0, 1, 0};
 int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
+  int r, n;
+  int c = 1;
+  while(cin >> r >> n && r){
 
-  int tc; cin >> tc;
-
-  while(tc--){
-
-    int degree;
-    cin >> degree;
-
-    int a[22];
-    for (int i = 0; i <= degree; ++i) { cin >> a[i]; }
-    int d; cin >> d; int k; cin >> k;
-    int i = 1;
-
-    while(k>0){ k-= d*i; i++; }
-    i--;
-
-    ll o= 0;
-    for (int j = 0; j <= degree; ++j) {
-      o += pow(i, j)*a[j];
+    if(r> 26*n){
+      printf("Case %d: impossible\n", c);
     }
-    std::cout << o << std::endl;
-
+    else {
+      int t = r/n;
+      printf("Case %d: %d\n", c, t);
+    }
+    c++;
   }
 
   return 0;
