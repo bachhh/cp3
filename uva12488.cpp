@@ -16,28 +16,27 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {-1, 0, 1, 0};
 int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
-
-
-  int tc; cin >> tc;
-  while(tc--){
-    int r; cin >> r;
-    int a[10000];
-    for (int i = 0; i < r; ++i) {
-      cin >> a[i];
+  int n;
+  while(cin >> n){
+    int start[24];
+    int istart[25];
+    int finish[24];
+    for (int i = 0; i < n; ++i) {
+      cin >> start[i];
+      istart[start[i]] = i;
     }
-    sort(a, a+r);
-
-    int mint = INT_MAX;
-    for (int i = a[0]; i <= a[r-1]; ++i) {
-      int t =0;
-      for (int j = 0; j < r; ++j) {
-        t += abs(a[j] - i);
+    for (int i = 0; i < n; ++i) {
+      cin >> finish[i];
+    }
+    int t = 0;
+    for (int i = 0; i < n; ++i) {
+      for (int j = i+1; j < n; ++j) {
+        if(istart[finish[j]] < istart[finish[i]]) t++;
       }
-      mint = min(mint, t);
     }
-    std::cout << mint << std::endl;
-  }
+    std::cout << t << std::endl;
 
+  }
 
   return 0;
 }

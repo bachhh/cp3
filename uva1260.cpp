@@ -1,68 +1,41 @@
-#include <iostream>
-#include <assert.h>
-#include <stdio.h>
-#include <cmath>
-#include <string>
-#include <string.h>
-#include <vector>
-#include <map>
-#include <list>
-#include <unordered_map>
-#include <sstream>
-#include <stack>
-#include <queue>
-#include <deque>
-#include <iterator>
-#include <bitset>
-#include <algorithm>
-#include <tuple>
-#include <functional>
-#include <ctime>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-typedef long int int32;
-typedef long long int int64;
-typedef unsigned long int uint32;
-typedef unsigned long long int uint64;
-const double pi = acos(-1.0);
-
-#define PI 3.1415926535897932384626433832795
-#define INF (int)1e9
-#define FOREACH(it, l) for (auto it = l.begin(); it != l.end(); it++)
-#define MAX(a, b) ( (a > b ) ? a : b )
-#define MIN(a, b) ( (a < b ) ? a : b )
-
-void swap(int* a, int *b){
-  *a ^= *b;
-  *b ^= *a;
-  *a ^= *b;
-}
+#define LIMIT 100
+#define PLIMIT 10000010
+#define MOD 1000000007ll
+#define INF 1e9
+typedef long long ll;
+typedef pair<ll, ll> ii;
+int gcd(ll a, ll b) { return (b==0)?a:gcd(b, a%b); }
+int lcm(ll a, ll b) { ll i=(a/gcd(a,b))*b; assert(i>0); return i; }
+int dx[4] = {0, 1, 0, -1}, dy[4] = {-1, 0, 1, 0};
 
 //  ***** MAIN *****
 int main(){
-  ios::sync_with_stdio(false);
-  int tc, n, temp;
-  vector<int> list;
-  cin >> tc;
+  //ios::sync_with_stdio(false);
+  cin.tie(NULL);
+
+  int tc; cin >> tc;
   while(tc--){
-    cin >> n;
-    list.clear();
-    while(n--){
-      cin >> temp;
-      list.push_back(temp);
+    int n; cin >> n;
+    int a[1000];
+    for (int i = 0; i < n; ++i) {
+      cin >> a[i];
     }
-    int sum = 0;
-    for(int i =0; i < list.size(); ++i){
-      int count = 0;
-      for(int j = 0; j < i; ++j){
-        if(list[j] <= list[i])
-          count ++;
+
+    int t = 0;
+    for (int i = 1; i < n; ++i) {
+      for (int j = 0; j < i; ++j) {
+        t+= (a[j] <= a[i]);
       }
-      sum += count;
     }
-    cout << sum << endl;
+    std::cout << t << std::endl;
+
   }
+
+
   return 0;
 }
 

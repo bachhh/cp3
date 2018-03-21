@@ -16,26 +16,25 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {-1, 0, 1, 0};
 int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
-
-
+  char a[10000];
   int tc; cin >> tc;
-  while(tc--){
-    int r; cin >> r;
-    int a[10000];
-    for (int i = 0; i < r; ++i) {
-      cin >> a[i];
-    }
-    sort(a, a+r);
+  for(int cn = 1; cn <= tc; ++cn ){
+    int n; cin>> n;
+    int k; cin >> k;
 
-    int mint = INT_MAX;
-    for (int i = a[0]; i <= a[r-1]; ++i) {
-      int t =0;
-      for (int j = 0; j < r; ++j) {
-        t += abs(a[j] - i);
+    int t = 0;
+    for (int i = 0; i < n; ++i) {
+      cin >> a[i];
+      for (int j = i-1; j >= max(0, i-k) ; --j) {
+        if(a[j] == a[i]){
+          t++;
+          break;
+        }
       }
-      mint = min(mint, t);
     }
-    std::cout << mint << std::endl;
+
+    printf("Case %d: %d\n", cn, t);
+
   }
 
 

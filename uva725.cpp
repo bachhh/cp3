@@ -17,28 +17,6 @@ int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
 
-
-  int tc; cin >> tc;
-  while(tc--){
-    int r; cin >> r;
-    int a[10000];
-    for (int i = 0; i < r; ++i) {
-      cin >> a[i];
-    }
-    sort(a, a+r);
-
-    int mint = INT_MAX;
-    for (int i = a[0]; i <= a[r-1]; ++i) {
-      int t =0;
-      for (int j = 0; j < r; ++j) {
-        t += abs(a[j] - i);
-      }
-      mint = min(mint, t);
-    }
-    std::cout << mint << std::endl;
-  }
-
-
   return 0;
 }
 

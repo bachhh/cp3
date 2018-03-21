@@ -1,91 +1,62 @@
-#include <iostream>
-#include <assert.h>
-#include <stdio.h>
-#include <cmath>
-#include <string>
-#include <string.h>
-#include <vector>
-#include <map>
-#include <list>
-#include <unordered_map>
-#include <sstream>
-#include <stack>
-#include <queue>
-#include <deque>
-#include <iterator>
-#include <bitset>
-#include <algorithm>
-#include <tuple>
-#include <functional>
-#include <ctime>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-typedef long int int32;
-typedef long long int int64;
-typedef unsigned long int uint32;
-typedef unsigned long long int uint64;
-const double pi = acos(-1.0);
-
-#define PI 3.1415926535897932384626433832795
-#define INF (int)1e9
-#define FOREACH(it, l) for (auto it = l.begin(); it != l.end(); it++)
-#define MAX(a, b) ( (a > b ) ? a : b )
-#define MIN(a, b) ( (a < b ) ? a : b )
-
-void swap(int* a, int *b){
-  *a ^= *b;
-  *b ^= *a;
-  *a ^= *b;
-}
+#define LIMIT 100
+#define PLIMIT 10000010
+#define MOD 1000000007ll
+#define INF 1e9
+typedef long long ll;
+typedef pair<ll, ll> ii;
+int gcd(ll a, ll b) { return (b==0)?a:gcd(b, a%b); }
+int lcm(ll a, ll b) { ll i=(a/gcd(a,b))*b; assert(i>0); return i; }
+int dx[4] = {0, 1, 0, -1}, dy[4] = {-1, 0, 1, 0};
 
 //  ***** MAIN *****
 int main(){
-  ios::sync_with_stdio(false);
-  int n, temp, m, min_d, d, sum, result;
-  int tc =1;
-  vector<int> list;
-  vector<int>::iterator first, last;
-  while(cin >> n && n > 1){
-    list.clear();
-    while (n--){
-      cin >> temp;
-      list.push_back(temp);
-    }
-    std::sort(list.begin(), list.end());
-    printf("Case %d:\n",  tc++);
-    cin >> m;
-    while(m--){
-      cin >> sum;
-      first = list.begin();
-      last = list.end();last--;
-      min_d = INF;
-      while(true) {
-        d = abs((*first + *last) - sum);
-        if( d < min_d){
-          min_d = d;
-          result = *first + *last;
-        }
-        if(distance(first, last) > 1){
-          if(*first+*last < sum){
-            first++;
-          }
-          else if ( *first + *last > sum){
-            last--;
-          }
-          else{
-            break;
-          }
-        }
-        else{
-          break;
-        }
+  //ios::sync_with_stdio(false);
+  cin.tie(NULL);
 
+  int n;
+  int a[1000];
+  int c = 1;
+  while(cin >> n && n){
+
+    int sum[1000010], k=0;
+    for (int i = 0; i < n; ++i) {
+      cin >> a[i];
+      for (int j = i+1; j < n; ++j) {
+        sum[k] = a[i]+a[j];
+        k++;
       }
-      printf("Closest sum to %d is %d.\n", sum, result);
     }
 
+    sort(sum, sum+k);
+    sum[k] = INT_MAX;
+    int m; cin >> m;
+
+    printf("Case %d:\n", c++);
+    for (int i = 0; i < m; ++i) {
+      int t; cin>> t;
+
+      int j = lower_bound(sum, sum+k, t) - sum;
+      int s;
+      if(j > 0  ){
+        if(sum[j] - t < t - sum[j-1]){
+          s = sum[j];
+        }
+        else {
+          s = sum[j-1];
+        }
+      }
+      else {
+        s = sum[j];
+      }
+      printf("Closest sum to %d is %d\n", t, s);
+    }
   }
+
+
   return 0;
 }
 
