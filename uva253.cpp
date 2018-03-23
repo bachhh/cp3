@@ -77,14 +77,26 @@ int main(){
   cin.tie(NULL);
   string s;
   string ans[2] = {"FALSE", "TRUE"};
-  char cube1[6];
-  char cube2[6];
+  char cube1[6]= {'1','2','3','4','5'};
+  char cube2[6]= {'1','2','3','4','5'};
+  char* v[1000];
 
-  while(cin >> s){
-    for (int i = 0; i < 6; ++i) { cube1[i] = s[i]; }
-    for (int i = 6; i < 12; ++i) { cube2[i-6] = s[i]; }
-    std::cout << ans[checkRot(cube1, cube2)] << std::endl;
-  }
+  int n = 1;
+  v[0] = cube1;
+
+  do{
+    bool flag = false;
+    for (int i = 0; i < n; ++i) {
+      flag |= checkRot(v[i], cube2);
+    }
+    if(!flag){
+      char* newcube = (char*)malloc(sizeof(char)*6);
+      v[n++] = newcube;
+      break;
+    }
+
+  }while(next_permutation(cube2, cube2+6));
+  std::cout << n << std::endl;
 
   return 0;
 }

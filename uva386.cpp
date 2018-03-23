@@ -2,7 +2,7 @@
 
 using namespace std;
 
-#define LIMIT 100
+#define LIMIT 8000000
 #define PLIMIT 10000010
 #define MOD 1000000007ll
 #define INF 1e9
@@ -17,12 +17,20 @@ int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
 
-  for (int a = 1; a <= 200; ++a) {
-    for (int d = 1; d <= 188; ++d) {
+  for (int a = 2; a <= 200; ++a) {
 
+    for (ll i = 2; i*i*i <= LIMIT-16; ++i) {
+      for (ll j = i; i*i*i +j*j*j <= LIMIT-8 &&  j < 200; ++j) {
+        for (ll k = j; k < 200; ++k) {
+          ll o = i*i*i+j*j*j+k*k*k;
+          if(o> a*a*a) break;
+          if(o == a*a*a) {
+            printf("Cube = %d, Triple = (%lld,%lld,%lld)\n", a, i ,j, k);
+          }
+        }
+      }
     }
   }
-
 
   return 0;
 }
