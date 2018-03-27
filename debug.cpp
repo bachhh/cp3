@@ -121,6 +121,14 @@ void debug(T **matrix, size_t row, size_t col){
   cout << "\n";
 }
 
+template <typename T>
+void PrintBit(T a, int n){
+  for (int i = n-1; i >= 0 ; --i) {
+    if(a &(1<<i)) cout <<"1";
+    else cout << "0";
+  }
+  cout << endl;
+}
 
 //  ***** MAIN *****
 int main(){
