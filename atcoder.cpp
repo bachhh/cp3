@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -16,13 +17,12 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {-1, 0, 1, 0};
 int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
-
-  int n, t; cin >> n >> t;
-  int a[100000];
-  int v[100000];
+  int n; cin >> n;
+  int p[100000];
   for (int i = 0; i < n; ++i) {
-    cin >> a[i] >> v[i];
+    cin >> p[i];
   }
+
 
   return 0;
 }

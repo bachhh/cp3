@@ -16,13 +16,29 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {-1, 0, 1, 0};
 int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
+  int n; cin >> n;
+  int v[101];
 
-  int n, t; cin >> n >> t;
-  int a[100000];
-  int v[100000];
   for (int i = 0; i < n; ++i) {
-    cin >> a[i] >> v[i];
+    cin >> v[i];
   }
+  sort(v, v+n);
+  int prefix[101];
+
+  for (int i = 0; i < n; ++i) {
+    prefix[i] = v[i];
+    if(i>0) prefix[i] += prefix[i-1];
+  }
+
+  prefix[n] = 0;
+
+  int maxt = prefix[n-1];
+  for (int i = 1; i < n; ++i) {
+    //std::cout << maxt << std::endl;
+    maxt = max(maxt, prefix[n-1] - prefix[i-1]*2);
+  }
+  maxt = max(maxt, prefix[n] - prefix[n-1]);
+  std::cout << maxt << std::endl;
 
   return 0;
 }

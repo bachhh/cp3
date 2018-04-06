@@ -16,13 +16,24 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {-1, 0, 1, 0};
 int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
+  int n; cin >> n;
+  int a[1000003];
+  int mint= INT_MAX;
+  a[n+1] = 1000000;
+  a[0] = 1;
 
-  int n, t; cin >> n >> t;
-  int a[100000];
-  int v[100000];
-  for (int i = 0; i < n; ++i) {
-    cin >> a[i] >> v[i];
+  int x, y;
+  for (int i = 1; i <= n; ++i) {
+    cin >> a[i];
   }
+  for (int i = 0; i <=n; ++i) {
+    if(max(a[i]-a[0] ,  a[n+1] -a[i+1])< mint){
+      mint = max(a[i]-a[0] , a[n+1]-a[i+1]);
+      x = i;
+    }
+  }
+
+  std::cout << max(a[x]-a[0] , a[n+1]- a[x+1]) << std::endl;
 
   return 0;
 }

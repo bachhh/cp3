@@ -16,13 +16,18 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {-1, 0, 1, 0};
 int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
+  ll a, b;
+  cin >> a >> b;
 
-  int n, t; cin >> n >> t;
-  int a[100000];
-  int v[100000];
-  for (int i = 0; i < n; ++i) {
-    cin >> a[i] >> v[i];
+  while(true){
+    if(a==0 || b==0){
+      break;
+    }
+    if (a>= 2*b) a %= 2*b;
+    else if(b>=2*a) b %= 2*a;
+    else break;
   }
+  std::cout << a << " " << b << std::endl;
 
   return 0;
 }

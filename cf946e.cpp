@@ -17,13 +17,29 @@ int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
 
-  int n, t; cin >> n >> t;
-  int a[100000];
-  int v[100000];
-  for (int i = 0; i < n; ++i) {
-    cin >> a[i] >> v[i];
-  }
+  int tc; cin >> tc;
+  int counter[10];
+  while(tc--){
 
+    memset(counter, 0, sizeof(counter[0])*10);
+    int n; cin >> n;
+    string s = to_string(n);
+    for(char c:s){
+      counter[c-'0']++;
+    }
+    int i = -1;
+    int t = 0;
+    while(i<10){
+      i++;
+      if(counter[i]%2 == 1){
+        t++;
+      }
+    }
+    if(s.size()%2 ==0){
+    }
+    else {
+    }
+  }
   return 0;
 }
 

@@ -16,12 +16,25 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {-1, 0, 1, 0};
 int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
+  string s; cin >> s;
+  char c = 'a';
+  for (int i = 0;c<='z' && i < s.size(); ++i) {
+    if(s[i] < c){
+      while(s[i] < c){
+        s[i]++;
+      }
+      c++;
+    }
+    else if(s[i] == c){
+      c++;
+    }
 
-  int n, t; cin >> n >> t;
-  int a[100000];
-  int v[100000];
-  for (int i = 0; i < n; ++i) {
-    cin >> a[i] >> v[i];
+  }
+  if(c=='z'+1){
+    std::cout << s << std::endl;
+  }
+  else{
+    std::cout << -1 << std::endl;
   }
 
   return 0;

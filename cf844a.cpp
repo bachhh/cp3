@@ -14,15 +14,17 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {-1, 0, 1, 0};
 
 //  ***** MAIN *****
 int main(){
-  //ios::sync_with_stdio(false);
-  cin.tie(NULL);
-
-  int n, t; cin >> n >> t;
-  int a[100000];
-  int v[100000];
-  for (int i = 0; i < n; ++i) {
-    cin >> a[i] >> v[i];
-  }
+    //ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    string s; cin >> s;
+    int k; cin >> k;
+    if(s.size() < k){
+        std::cout << "impossible" << std::endl;
+        return 0;
+    }
+    set<char> x;
+    for(char c : s) x.insert(c);
+    std::cout << max(k-(int)x.size(), 0) << std::endl;
 
   return 0;
 }

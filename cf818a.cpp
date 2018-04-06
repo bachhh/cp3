@@ -17,13 +17,10 @@ int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
 
-  int n, t; cin >> n >> t;
-  int a[100000];
-  int v[100000];
-  for (int i = 0; i < n; ++i) {
-    cin >> a[i] >> v[i];
-  }
+  ll n, k; cin >> n >> k;
 
+  ll d = n/(2*(k+1));
+  cout << d << " " << k*d << " " << n-d-k*d << endl;
   return 0;
 }
 

@@ -2,7 +2,7 @@
 
 using namespace std;
 
-#define LIMIT 100
+#define LIMIT 1000000000
 #define PLIMIT 10000010
 #define MOD 1000000007ll
 #define INF 1e9
@@ -17,12 +17,14 @@ int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
 
-  int n, t; cin >> n >> t;
-  int a[100000];
-  int v[100000];
-  for (int i = 0; i < n; ++i) {
-    cin >> a[i] >> v[i];
+  int tc; cin >> tc;
+  while(tc--){
+    int x; cin >> x;
+    bool flag = false;
+    for(int m = 0; m*m <= LIMIT; ++m){
+    }
   }
+
 
   return 0;
 }
