@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -17,20 +16,8 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {-1, 0, 1, 0};
 int main(){
   //ios::sync_with_stdio(false);
   cin.tie(NULL);
-  int n; cin >> n;
-  int tot = 0;
-  int a[100003] = {0};
-
-  for (int i = 1; i <= n; ++i) {
-    cin >> a[i];
-    tot += abs(a[i]-a[i-1]);
-  }
-
-  tot+= abs(a[n]);
-
-  for (int i = 1; i <= n; ++i) {
-    std::cout << tot- abs(a[i]-a[i-1]) - abs(a[i+1]-a[i])+ abs(a[i+1]-a[i-1]) << std::endl;
-  }
+  int a; cin >> a;
+  std::cout << (a%2!=0) << std::endl;
 
   return 0;
 }
