@@ -44,8 +44,8 @@ function check_supported_lang() {
         SCHEME=n # default to numerical schema
     fi
 
-    if [[ -z "$CONTEST"  || "$CONTEST" == "template" ]]; then
-        printf "Invalid title -%s\n" "$CONTEST" >&2
+    if [[ -z "$TITLE"  || "$TITLE" == "template" ]]; then
+        printf "Invalid title -%s\n" "$TITLE" >&2
         echo "$usage" >&2
         exit 1
     fi
@@ -68,7 +68,7 @@ while getopts ':ht:n:s:l:' option; do
         ;;
 
     t  )
-        CONTEST=$OPTARG
+        TITLE=$OPTARG
         ;;
 
     n  )
@@ -98,8 +98,8 @@ shift $((OPTIND - 1))
 
 check_supported_lang
 
-echo "1. Creating directory for contest $CONTEST"
-mkdir "$CONTEST"
+echo "1. Creating directory $TITLE"
+mkdir "$TITLE"
 
 echo "Done"
 
@@ -110,9 +110,9 @@ for ((i=1; i < NUM ; i++)); do
     if [ $SCHEME == "a" ]; then
         name=$(echo "$i" | tr '[1-9]' '[a-k]')
     fi
-    cp "template/$LANGUAGE/template.$LANGUAGE" "$CONTEST/$name.$LANGUAGE"
-    cp "template/$LANGUAGE/Makefile" "$CONTEST/Makefile"
-    touch "$CONTEST/$i_input.txt"
-    touch "$CONTEST/$i_output.txt"
+    cp "template/$LANGUAGE/template.$LANGUAGE" "$TITLE/$name.$LANGUAGE"
+    cp "template/$LANGUAGE/Makefile" "$TITLE/Makefile"
+    touch "$TITLE/$i_input.txt"
+    touch "$TITLE/$i_output.txt"
 done
 echo "Done"
