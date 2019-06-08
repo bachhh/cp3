@@ -1,6 +1,8 @@
 #!/bin/bash
+# exit if any command failed
+set -e
 
-usage="$(basename "$0") [-h] -t Tittle -n Num -s <a|n> -l <cpp|go...>  -- create template for competition
+usage="$(basename "$0") [-h] -t title -n num -s <a|n> -l <cpp|go...>  -- create template for competition
     Each competition will be populate with:
         - [a-b].<language extensions inside a folder name <title>
         - [a-b]_input.txt file
@@ -17,16 +19,56 @@ where:
 
 
 TASK_COUNT=5
-SUPPORTED_LANGUAGE="cpp go"
+SUPPORTED_LANGUAGE=( $(ls -l "template/" | grep '^d' | awk '{ print $9 }') )
+
+# echo "${SUPPORTED_LANGUAGE[@]}"
+
+
+function check_supported_lang() {
+
+    local in=1
+    for lang in "${SUPPORTED_LANGUAGE[@]}"
+    do
+        if [ "$LANGUAGE" == "$lang" ]; then
+            in=0
+        fi
+    done
+
+    if [ "$in" -eq "1" ]; then
+        printf "Unsupported language -%s, must be one of -%s\n" "$LANGUAGE" "$SUPPORTED_LANGUAGE" >&2
+        echo "$usage" >&2
+        exit 1
+    fi
+
+    if [ $SCHEME != 'a' ] && [ $SCHEME != 'n' ]; then
+        SCHEME=n # default to numerical schema
+    fi
+
+    if [[ -z "$TITLE"  || "$TITLE" == "template" ]]; then
+        printf "Invalid title -%s\n" "$TITLE" >&2
+        echo "$usage" >&2
+        exit 1
+    fi
+
+    if ! ((  $NUM > 0 )); then
+        printf "Invalid task number -%s\n" "$NUM" >&2
+        echo "$usage" >&2
+        exit 1
+    fi
+
+
+}
+
 while getopts ':ht:n:s:l:' option; do
   case "$option" in
+
     h  )
         echo "$usage"
         exit 0
         ;;
 
     t  )
-        TITLE=$OPTRARG
+        TITLE=$OPTARG
         ;;
 
     n  )
@@ -35,20 +77,10 @@ while getopts ':ht:n:s:l:' option; do
 
     s  )
         SCHEME=$OPTARG
-        if [[ $SCHEME != 'a' && $SCHEME != 'n' ]]; then
-            printf "Invalid naming scheme argument -%s, must be a|n\n" "$OPTARG" >&2
-            echo "$usage" >&2
-            exit 1
-        fi
         ;;
 
     l  )
         LANGUAGE=$OPTARG
-        if [[ " $SUPPORTED_LANGUAGE " =~ .*\ $LANGUAGE\ .* ]]; then
-           printf "Unsupported language -%s, must be one of -%s\n" "$OPTARG" "$SUPPORTED_LANGUAGE" >&2
-           echo "$usage" >&2
-           exit 1
-        fi
         ;;
 
     :  ) printf "missing argument for -%s\n" "$OPTARG" >&2; echo "$usage" >&2; exit 1 ;;
@@ -61,9 +93,26 @@ done
 
 if ((OPTIND == 1)); then printf "No options specified\n\n"; echo "$usage" >&2; exit 1; fi
 
+
 shift $((OPTIND - 1))
 
-echo $TITLE
-echo $NUM
-echo $SCHEME
-echo $LANGUAGE
+check_supported_lang
+
+echo "1. Creating directory $TITLE"
+mkdir "$TITLE"
+
+echo "Done"
+
+echo "2. Populating template for $LANGUAGE"
+
+for ((i=1; i < NUM ; i++)); do
+    name="$i"
+    if [ $SCHEME == "a" ]; then
+        name=$(echo "$i" | tr '[1-9]' '[a-k]')
+    fi
+    cp "template/$LANGUAGE/template.$LANGUAGE" "$TITLE/$name.$LANGUAGE"
+    cp "template/$LANGUAGE/Makefile" "$TITLE/Makefile"
+    touch "$TITLE/$i_input.txt"
+    touch "$TITLE/$i_output.txt"
+done
+echo "Done"
