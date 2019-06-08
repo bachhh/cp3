@@ -1,0 +1,69 @@
+#!/bin/bash
+
+usage="$(basename "$0") [-h] -t Tittle -n Num -s <a|n> -l <cpp|go...>  -- create template for competition
+    Each competition will be populate with:
+        - [a-b].<language extensions inside a folder name <title>
+        - [a-b]_input.txt file
+        - [a-b]_output.txt file
+        - Makefile a make file to compile/run test cases for each input:
+            + Type: make <task-name> to run test cases from <task-name>_input.txt for that task
+where:
+    -h  show this help text
+    -t  Title of the compeition, used as folder name
+    -n  the number of tasks for this competition
+    -s  The naming scheme of task ( alphabetical | numerical )
+    -l  Language to use in the competition, limited support only
+"
+
+
+TASK_COUNT=5
+SUPPORTED_LANGUAGE="cpp go"
+while getopts ':ht:n:s:l:' option; do
+  case "$option" in
+    h  )
+        echo "$usage"
+        exit 0
+        ;;
+
+    t  )
+        TITLE=$OPTRARG
+        ;;
+
+    n  )
+        NUM=$OPTARG
+        ;;
+
+    s  )
+        SCHEME=$OPTARG
+        if [[ $SCHEME != 'a' && $SCHEME != 'n' ]]; then
+            printf "Invalid naming scheme argument -%s, must be a|n\n" "$OPTARG" >&2
+            echo "$usage" >&2
+            exit 1
+        fi
+        ;;
+
+    l  )
+        LANGUAGE=$OPTARG
+        if [[ " $SUPPORTED_LANGUAGE " =~ .*\ $LANGUAGE\ .* ]]; then
+           printf "Unsupported language -%s, must be one of -%s\n" "$OPTARG" "$SUPPORTED_LANGUAGE" >&2
+           echo "$usage" >&2
+           exit 1
+        fi
+        ;;
+
+    :  ) printf "missing argument for -%s\n" "$OPTARG" >&2; echo "$usage" >&2; exit 1 ;;
+
+    \? ) printf "Invalid option: -$option requires an argument\n" >&2; echo "$usage" >&2; exit 1 ;;
+
+    *  ) echo "Unimplemented option: -$OPTARG" >&2; exit 1;;
+  esac
+done
+
+if ((OPTIND == 1)); then printf "No options specified\n\n"; echo "$usage" >&2; exit 1; fi
+
+shift $((OPTIND - 1))
+
+echo $TITLE
+echo $NUM
+echo $SCHEME
+echo $LANGUAGE
