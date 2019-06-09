@@ -2,7 +2,7 @@
 # exit if any command failed
 set -e
 
-usage="$(basename "$0") [-h] -t title -n num -s <a|n> -l <cpp|go...>  -- create template for competition
+usage="$(basename "$0") [-h] -c title -n num -s <a|n> -l <cpp|go...>  -- create template for competition
     Each competition will be populate with:
         - [a-b].<language extensions inside a folder name <title>
         - [a-b]_input.txt file
@@ -11,7 +11,7 @@ usage="$(basename "$0") [-h] -t title -n num -s <a|n> -l <cpp|go...>  -- create 
             + Type: make <task-name> to run test cases from <task-name>_input.txt for that task
 where:
     -h  show this help text
-    -t  Title of the compeition, used as folder name
+    -c  Title of the contest, used as folder name
     -n  the number of tasks for this competition
     -s  The naming scheme of task ( alphabetical | numerical )
     -l  Language to use in the competition, limited support only
@@ -44,8 +44,8 @@ function check_supported_lang() {
         SCHEME=n # default to numerical schema
     fi
 
-    if [[ -z "$TITLE"  || "$TITLE" == "template" ]]; then
-        printf "Invalid title -%s\n" "$TITLE" >&2
+    if [[ -z "$CONTEST"  || "$CONTEST" == "template" ]]; then
+        printf "Invalid contest name %s\n" "$CONTEST" >&2
         echo "$usage" >&2
         exit 1
     fi
@@ -59,7 +59,7 @@ function check_supported_lang() {
 
 }
 
-while getopts ':ht:n:s:l:' option; do
+while getopts ':hc:n:s:l:' option; do
   case "$option" in
 
     h  )
@@ -67,8 +67,8 @@ while getopts ':ht:n:s:l:' option; do
         exit 0
         ;;
 
-    t  )
-        TITLE=$OPTARG
+    c  )
+        CONTEST=$OPTARG
         ;;
 
     n  )
@@ -98,8 +98,8 @@ shift $((OPTIND - 1))
 
 check_supported_lang
 
-echo "1. Creating directory $TITLE"
-mkdir "$TITLE"
+echo "1. Creating directory $CONTEST"
+mkdir "$CONTEST"
 
 echo "Done"
 
@@ -110,9 +110,9 @@ for ((i=1; i < NUM ; i++)); do
     if [ $SCHEME == "a" ]; then
         name=$(echo "$i" | tr '[1-9]' '[a-k]')
     fi
-    cp "template/$LANGUAGE/template.$LANGUAGE" "$TITLE/$name.$LANGUAGE"
-    cp "template/$LANGUAGE/Makefile" "$TITLE/Makefile"
-    touch "$TITLE/$i_input.txt"
-    touch "$TITLE/$i_output.txt"
+    cp "template/$LANGUAGE/template.$LANGUAGE" "$CONTEST/$name.$LANGUAGE"
+    cp "template/$LANGUAGE/Makefile" "$CONTEST/Makefile"
+    touch "$CONTEST/$i""_input.txt"
+    touch "$CONTEST/$i""_output.txt"
 done
 echo "Done"
