@@ -112,7 +112,7 @@ for ((i=1; i < NUM ; i++)); do
     fi
     cp "template/$LANGUAGE/template.$LANGUAGE" "$CONTEST/$name.$LANGUAGE"
     cp "template/$LANGUAGE/Makefile" "$CONTEST/Makefile"
-    touch "$CONTEST/$i""_input.txt"
-    touch "$CONTEST/$i""_output.txt"
+    touch "$CONTEST/$name""_input.txt"
+    touch "$CONTEST/$name""_output.txt"
 done
 echo "Done"
