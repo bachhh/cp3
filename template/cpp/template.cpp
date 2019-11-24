@@ -14,8 +14,8 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {-1, 0, 1, 0};
 
 //  ***** MAIN *****
 int main(){
-  //ios::sync_with_stdio(false);
-  cin.tie(NULL);
+    //ios::sync_with_stdio(false);
+    cin.tie(NULL);
 
-  return 0;
+    return 0;
 }

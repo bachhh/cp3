@@ -2,21 +2,34 @@
 # exit if any command failed
 set -e
 
-usage="$(basename "$0") [-h] -c title -n num -s <a|n> -l <cpp|go...>  -- create template for competition
+usage="$(basename "$0") [-h] -t title -n num -a <a|n> -l <cpp|go...>  -- create template for competition
     Each competition will be populate with:
         - [a-b].<language extensions inside a folder name <title>
         - [a-b]_input.txt file
         - [a-b]_output.txt file
         - Makefile a make file to compile/run test cases for each input:
             + Type: make <task-name> to run test cases from <task-name>_input.txt for that task
-where:
-    -h  show this help text
-    -c  Title of the contest, used as folder name
-    -n  the number of tasks for this competition
-    -s  The naming scheme of task ( alphabetical | numerical )
-    -l  Language to use in the competition, limited support only
+
+    -h  --help
+        Show this help text.
+
+    -t --title
+        Title of the contest, used as folder name.
+
+    -n --number
+        The number of tasks for this competition.
+
+    -a --affix
+        The naming affix of task ( alphabetical | numerical ).
+
+    -l --language
+        Language to use in the competition, limited support only.
 "
 
+printusage()
+{
+    echo "$usage" >$2
+}
 
 TASK_COUNT=5
 SUPPORTED_LANGUAGE=( $(ls -l "template/" | grep '^d' | awk '{ print $9 }') )
@@ -35,71 +48,95 @@ function check_supported_lang() {
     done
 
     if [ "$in" -eq "1" ]; then
-        printf "Unsupported language -%s, must be one of -%s\n" "$LANGUAGE" "$SUPPORTED_LANGUAGE" >&2
-        echo "$usage" >&2
+        printf "Unsupported language %s, must be one of %s\n" "$LANGUAGE" "$SUPPORTED_LANGUAGE" >&2
+        p
+        printusage
         exit 1
     fi
 
-    if [ $SCHEME != 'a' ] && [ $SCHEME != 'n' ]; then
-        SCHEME=n # default to numerical schema
+    if [ $AFFIX != 'a' ] && [ $AFFIX != 'n' ]; then
+        AFFIX=n # default to numerical schema
     fi
 
-    if [[ -z "$CONTEST"  || "$CONTEST" == "template" ]]; then
-        printf "Invalid contest name %s\n" "$CONTEST" >&2
-        echo "$usage" >&2
+    if [[ -z "$TITLE"  || "$TITLE" == "template" ]]; then
+        printf "Invalid contest name %s\n" "$TITLE" >&2
+        printusage
         exit 1
     fi
 
     if ! ((  $NUM > 0 )); then
         printf "Invalid task number -%s\n" "$NUM" >&2
-        echo "$usage" >&2
+        printusage
         exit 1
     fi
 
 
 }
 
-while getopts ':hc:n:s:l:' option; do
-  case "$option" in
+# getopts -l 'help,title:,number:,affix:,language:' -a -o 'ht:n:a:l:'
 
-    h  )
-        echo "$usage"
+# getopt -l "name:,version::,verbose" -- "n:v::V" "--name=Karthik -version=5.2 -verbose"
+
+# -o is for short options like -v
+# -l is for long options with double dash like --version
+# the comma separates different long options
+# -a is for long options with single dash like -version
+OPTS=$(getopt -o ht:n:a:l: -l help,title:,number:,affix:,language: -- "$@")
+
+
+# set --:
+# If no arguments follow this option, then the positional parameters are unset. Otherwise, the positional parameters
+# are set to the arguments, even if some of them begin with a ‘-’.
+echo "$OPTS"
+eval set -- "$OPTS"
+
+# while getopts 'ht:n:a:l:' option; do
+while true; do
+  case "$1" in
+
+    -h|--help)
+        printusage
         exit 0
         ;;
 
-    c  )
-        CONTEST=$OPTARG
+
+    -t|--title)
+        TITLE="$2"
+        shift 2
         ;;
 
-    n  )
-        NUM=$OPTARG
+    -n|--number)
+        NUM="$2"
+        shift 2
         ;;
 
-    s  )
-        SCHEME=$OPTARG
+    -a|--affix)
+        AFFIX="$2"
+        shift 2
         ;;
 
-    l  )
-        LANGUAGE=$OPTARG
+    -l|--language)
+        LANGUAGE="$2"
+        shift 2
         ;;
 
-    :  ) printf "missing argument for -%s\n" "$OPTARG" >&2; echo "$usage" >&2; exit 1 ;;
+    *)
+        break;;
 
-    \? ) printf "Invalid option: -$option requires an argument\n" >&2; echo "$usage" >&2; exit 1 ;;
+    --)
+        shift
+        break;;
 
-    *  ) echo "Unimplemented option: -$OPTARG" >&2; exit 1;;
   esac
 done
-
-if ((OPTIND == 1)); then printf "No options specified\n\n"; echo "$usage" >&2; exit 1; fi
 
 
 shift $((OPTIND - 1))
 
 check_supported_lang
 
-echo "1. Creating directory $CONTEST"
-mkdir "$CONTEST"
+echo "1. Creating directory $TITLE"
+mkdir "$TITLE"
 
 echo "Done"
 
@@ -107,12 +144,12 @@ echo "2. Populating template for $LANGUAGE"
 
 for ((i=1; i < NUM ; i++)); do
     name="$i"
-    if [ $SCHEME == "a" ]; then
+    if [ $AFFIX == "a" ]; then
         name=$(echo "$i" | tr '[1-9]' '[a-k]')
     fi
-    cp "template/$LANGUAGE/template.$LANGUAGE" "$CONTEST/$name.$LANGUAGE"
-    cp "template/$LANGUAGE/Makefile" "$CONTEST/Makefile"
-    touch "$CONTEST/$name""_input.txt"
-    touch "$CONTEST/$name""_output.txt"
+    cp "template/$LANGUAGE/template.$LANGUAGE" "$TITLE/$name.$LANGUAGE"
+    cp "template/$LANGUAGE/Makefile" "$TITLE/Makefile"
+    touch "$TITLE/$name""_input.txt"
+    touch "$TITLE/$name""_output.txt"
 done
 echo "Done"
