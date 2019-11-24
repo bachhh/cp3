@@ -2,21 +2,24 @@ TARGET="$F.cpp"
 CC=g++
 CFLAGS=-std=c++11 -g -O2
 
-# build task specified by env $F
-build:
-	$(CC) -o a.out $(TARGET) $(CFLAGS)
+.PHONY: help
 
-# test run program with input from $F_input.txt, print to stdout
-test: build
-	cat $F_input.txt | ./a.out;
-	rm a.out
+.DEFAULT_GOAL := help
 
-# build and run based on input
-run: build
-	cat $F_input.txt | ./a.out > output.txt;
-	rm a.out
+usage="make -F <target>"
 
 help: ## This help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-.PHONY: help
+
+build: ## build target with provided flags
+	$(CC) -o a.out $(TARGET) $(CFLAGS)
+
+test: build ## test run program with input from $F_input.txt, print to stdout
+	cat "$(TARGET)_input.txt" | ./a.out;
+
+run: build ## build and run based on input
+	cat "$(TARGET)_input.txt" | ./a.out > output.txt;
+
+clean:
+	rm a.out

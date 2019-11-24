@@ -28,7 +28,7 @@ usage="$(basename "$0") [-h] -t title -n num -a <a|n> -l <cpp|go...>  -- create 
 
 printusage()
 {
-    echo "$usage" >$2
+    echo "$usage" >&2
 }
 
 TASK_COUNT=5
