@@ -1,4 +1,4 @@
-TARGET="$F.cpp"
+TARGET="$F"
 CC=g++
 CFLAGS=-std=c++11 -g -O2
 
@@ -13,13 +13,13 @@ help: ## This help.
 
 
 build: ## build target with provided flags
-	$(CC) -o a.out $(TARGET) $(CFLAGS)
+	$(CC) -o a.out $(TARGET).cpp $(CFLAGS)
 
 test: build ## test run program with input from $F_input.txt, print to stdout
-	cat "$(TARGET)_input.txt" | ./a.out;
+	@cat "$(TARGET)_input.txt" | ./a.out;
 
 run: build ## build and run based on input
-	cat "$(TARGET)_input.txt" | ./a.out > output.txt;
+	@cat "$(TARGET)_input.txt" | ./a.out > output.txt;
 
 clean:
 	rm a.out
