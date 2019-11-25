@@ -1,6 +1,6 @@
 TARGET="$F"
 CC=g++
-CFLAGS=-std=c++11 -g -O2
+CFLAGS=-std=c++11 -g -O2 -w
 
 .PHONY: help
 
@@ -13,7 +13,7 @@ help: ## This help.
 
 
 build: ## build target with provided flags
-	$(CC) -o a.out $(TARGET).cpp $(CFLAGS)
+	@$(CC) -o a.out $(TARGET).cpp $(CFLAGS)
 
 test: build ## test run program with input from $F_input.txt, print to stdout
 	@cat "$(TARGET)_input.txt" | ./a.out;
