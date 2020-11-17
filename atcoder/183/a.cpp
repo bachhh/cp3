@@ -11,13 +11,14 @@ typedef pair<ll, ll> ii;
 int gcd(ll a, ll b) { return (b==0)?a:gcd(b, a%b); }
 int lcm(ll a, ll b) { ll i=(a/gcd(a,b))*b; assert(i>0); return i; }
 int dx[4] = {0, 1, 0, -1}, dy[4] = {-1, 0, 1, 0};
-template<typename T, typename U> static inline void amin(T &x, U y) { if (y < x) x = y; }
-template<typename T, typename U> static inline void amax(T &x, U y) { if (x < y) x = y; }
 
 //  ***** MAIN *****
 int main(){
     //ios::sync_with_stdio(false);
     cin.tie(NULL);
+    int A, B = 0;
+    cin >> A >> B;
+    cout << ((2*A) + 100) - B << endl;
 
     return 0;
 }

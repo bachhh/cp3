@@ -37,7 +37,7 @@ SUPPORTED_LANGUAGE=( $(ls -l "template/" | grep '^d' | awk '{ print $9 }') )
 # echo "${SUPPORTED_LANGUAGE[@]}"
 
 
-function check_supported_lang() {
+function check_all() {
 
     local in=1
     for lang in "${SUPPORTED_LANGUAGE[@]}"
@@ -49,8 +49,6 @@ function check_supported_lang() {
 
     if [ "$in" -eq "1" ]; then
         printf "Unsupported language %s, must be one of %s\n" "$LANGUAGE" "$SUPPORTED_LANGUAGE" >&2
-        p
-        printusage
         exit 1
     fi
 
@@ -81,13 +79,12 @@ function check_supported_lang() {
 # -l is for long options with double dash like --version
 # the comma separates different long options
 # -a is for long options with single dash like -version
-OPTS=$(getopt -o ht:n:a:l: -l help,title:,number:,affix:,language: -- "$@")
+OPTS=`getopt -o ht:n:a:l: --long help,title:,number:,affix:,language: -- "$@"`
 
 
 # set --:
 # If no arguments follow this option, then the positional parameters are unset. Otherwise, the positional parameters
 # are set to the arguments, even if some of them begin with a ‘-’.
-echo "$OPTS"
 eval set -- "$OPTS"
 
 # while getopts 'ht:n:a:l:' option; do
@@ -130,10 +127,7 @@ while true; do
   esac
 done
 
-
-shift $((OPTIND - 1))
-
-check_supported_lang
+check_all
 
 echo "1. Creating directory $TITLE"
 mkdir "$TITLE"
@@ -142,7 +136,7 @@ echo "Done"
 
 echo "2. Populating template for $LANGUAGE"
 
-for ((i=1; i < NUM ; i++)); do
+for ((i=1; i <= NUM ; i++)); do
     name="$i"
     if [ $AFFIX == "a" ]; then
         name=$(echo "$i" | tr '[1-9]' '[a-k]')
